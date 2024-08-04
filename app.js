@@ -42,9 +42,6 @@ function downloadFile() {
     link.click();
     document.body.removeChild(link);
 }
-document.getElementById("brittany-site").addEventListener("click", event => {
-    window.open("https://v4.brittanychiang.com/", "_blank");
-})
 
 const navLinks = document.querySelectorAll(".nav-link");
 
@@ -83,6 +80,7 @@ function updateFixedElementPosition() {
 
     if ((viewportHeight < 675) && (viewportWidth < 440)) {
         document.getElementById("about").style.marginTop = "20rem"
+
     }
     else if (viewportHeight < 560) {
         document.getElementById("about").style.marginTop = "20rem";
@@ -105,6 +103,7 @@ function updateFixedElementPosition() {
         fixedElement.style.marginBottom = '2rem';
         fixedElement.children[0].style.flexDirection = "row";
         document.getElementById('footer').appendChild(fixedElement);
+
     } else {
         fixedElement.style.position = 'fixed';
         fixedElement.style.bottom = '0';
