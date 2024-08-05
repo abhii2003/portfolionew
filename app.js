@@ -30,7 +30,7 @@ function opneGithubProfile() {
     window.open(githubProfile, "_blank");
 }
 function mailTo() {
-    let mailTo = "mailto:abhinavkush2003@gamil.com";
+    let mailTo = "mailto:abhinavkush2003@gmail.com";
 
     window.open(mailTo, "_blank");
 }
