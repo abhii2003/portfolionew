@@ -575,7 +575,9 @@ section {
     position: relative;
     display: block;
     outline: none;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .flip-card:focus-visible {
@@ -583,19 +585,34 @@ section {
     outline-offset: 4px;
 }
 
+/* Add hover scale and lift effect */
+.flip-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced inner card with tilt capabilities */
 .flip-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
     text-align: left;
-    transition: transform 0.6s ease-in-out;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-style: preserve-3d;
     border-radius: 18px;
     transform-origin: center center;
+    transform: rotateY(0deg);
+    will-change: transform;
 }
 
+/* AUTO FLIP ON HOVER with enhanced easing */
 .flip-card:hover .flip-card-inner {
     transform: rotateY(180deg);
+}
+
+/* Tilt effect based on cursor position */
+.flip-card.tilt-active .flip-card-inner {
+    transition: transform 0.1s ease-out;
 }
 
 .flip-card-front,
@@ -610,8 +627,9 @@ section {
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .flip-card-front {
@@ -620,6 +638,30 @@ section {
     border: 1px solid var(--border-color);
     transform: rotateY(0deg);
     z-index: 2;
+    position: relative;
+}
+
+/* Add subtle gradient overlay that responds to cursor */
+.flip-card-front::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(0, 212, 255, 0.1) 0%,
+            rgba(0, 212, 255, 0.05) 40%,
+            transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: 18px;
+    z-index: 1;
+}
+
+.flip-card:hover .flip-card-front::before {
+    opacity: 1;
 }
 
 .flip-card-back {
@@ -635,6 +677,33 @@ section {
     z-index: 1;
 }
 
+/* Add shimmer effect to back card */
+.flip-card-back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+    animation: shimmer 2s infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
 .project-item {
     width: 100%;
     height: 100%;
@@ -644,11 +713,12 @@ section {
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border-radius: 18px;
+    z-index: 2;
 }
 
-/* Header styling */
+/* Header styling with bounce animation */
 .project-item .item-header {
     display: flex;
     justify-content: space-between;
@@ -661,23 +731,50 @@ section {
 .project-item .fa-folder {
     font-size: 2.5rem;
     color: var(--primary-color);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-origin: center;
 }
 
 .project-item .fa-arrow-up-right-from-square {
     font-size: 1.5rem;
     color: var(--text-secondary);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-origin: center;
 }
 
-/* Prevent link clicks from interfering with flip */
-.project-item .item-header a {
-    position: relative;
-    z-index: 10;
-    pointer-events: auto;
+/* Enhanced hover effects with bounce */
+.flip-card:hover .flip-card-front .fa-folder {
+    transform: scale(1.2) rotate(10deg);
+    color: rgba(0, 212, 255, 1);
+    animation: bounce 0.6s ease-in-out;
 }
 
-/* Content styling */
+.flip-card:hover .flip-card-front .fa-arrow-up-right-from-square {
+    transform: scale(1.1) rotate(15deg);
+    color: var(--primary-color);
+    animation: bounce 0.6s ease-in-out 0.1s;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0) scale(1.2) rotate(10deg);
+    }
+
+    40% {
+        transform: translateY(-10px) scale(1.25) rotate(12deg);
+    }
+
+    60% {
+        transform: translateY(-5px) scale(1.22) rotate(11deg);
+    }
+}
+
+/* Content styling with staggered animations */
 .project-item h2,
 .project-item h3 {
     font-size: 1.5rem;
@@ -686,7 +783,14 @@ section {
     color: var(--text-primary);
     position: relative;
     z-index: 1;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+.flip-card:hover .project-item h2,
+.flip-card:hover .project-item h3 {
+    transform: translateY(-2px);
+    color: rgba(0, 212, 255, 0.9);
 }
 
 .project-item p {
@@ -696,9 +800,16 @@ section {
     position: relative;
     z-index: 1;
     font-size: 0.95rem;
+    transition: all 0.3s ease;
+    transform: translateY(0);
 }
 
-/* Tags styling */
+.flip-card:hover .project-item p {
+    transform: translateY(-1px);
+    color: var(--text-primary);
+}
+
+/* Tags styling with wave animation */
 .project-tags {
     display: flex;
     flex-wrap: wrap;
@@ -719,7 +830,53 @@ section {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 500;
     border: 1px solid rgba(0, 212, 255, 0.3);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateY(0) scale(1);
+}
+
+.flip-card:hover .project-tags li {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: rgba(0, 212, 255, 0.6);
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Staggered animation for tags */
+.flip-card:hover .project-tags li:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.flip-card:hover .project-tags li:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.flip-card:hover .project-tags li:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.flip-card:hover .project-tags li:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.flip-card:hover .project-tags li:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+.flip-card:hover .project-tags li {
+    animation: tagBounce 0.6s ease-in-out forwards;
+}
+
+@keyframes tagBounce {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-8px) scale(1.1);
+    }
+
+    100% {
+        transform: translateY(-2px) scale(1.05);
+    }
 }
 
 /* Back face content styling */
@@ -728,6 +885,7 @@ section {
     font-size: 2rem;
     margin-bottom: 1rem;
     font-family: 'JetBrains Mono', monospace;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
 }
 
 .flip-card-back p {
@@ -735,6 +893,19 @@ section {
     font-size: 1.1rem;
     margin-bottom: 2rem;
     line-height: 1.6;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .project-links {
@@ -742,6 +913,7 @@ section {
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
+    animation: fadeInUp 0.8s ease-out 0.5s both;
 }
 
 .project-links .btn {
@@ -752,7 +924,24 @@ section {
     pointer-events: auto;
     border-radius: 8px;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateY(0);
+    overflow: hidden;
+}
+
+.project-links .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.project-links .btn:hover::before {
+    left: 100%;
 }
 
 .btn-outline {
@@ -764,6 +953,8 @@ section {
 .btn-outline:hover {
     background: var(--primary-color);
     color: var(--bg-primary);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
 }
 
 .btn-disabled {
@@ -773,27 +964,7 @@ section {
     cursor: not-allowed;
 }
 
-/* Subtle hover effects for better UX */
-.flip-card:not(.flipped) .flip-card-front {
-    transition: all 0.3s ease;
-}
-
-.flip-card:hover .flip-card-front .fa-folder {
-    transform: scale(1.1);
-    color: rgba(0, 212, 255, 1);
-}
-
-.flip-card:hover .flip-card-front .fa-arrow-up-right-from-square {
-    transform: scale(1.1);
-    color: var(--primary-color);
-}
-
-/* Optional: Add slight bounce effect to flip */
-.flip-card-inner {
-    animation-fill-mode: both;
-}
-
-/* Optional JavaScript class for manual control */
+/* Remove any conflicting classes that might interfere */
 .flip-card.flipped .flip-card-inner {
     transform: rotateY(180deg);
 }
@@ -803,13 +974,26 @@ section {
 
     /* Disable hover on touch devices */
     .flip-card:hover .flip-card-inner {
-        transform: none;
+        transform: rotateY(0deg);
     }
 
-    /* Use focus or click for touch devices */
+    /* Disable tilt and other hover effects on touch */
+    .flip-card:hover {
+        transform: none;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Use focus/active for touch devices instead */
     .flip-card:focus .flip-card-inner,
-    .flip-card.active .flip-card-inner {
+    .flip-card.active .flip-card-inner,
+    .flip-card.flipped .flip-card-inner {
         transform: rotateY(180deg);
+    }
+
+    /* Add touch feedback */
+    .flip-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
     }
 }
 
@@ -849,6 +1033,11 @@ section {
     .project-item h3 {
         font-size: 1.3rem;
     }
+
+    /* Reduce motion on smaller screens for performance */
+    .flip-card:hover {
+        transform: translateY(-5px) scale(1.01);
+    }
 }
 
 @media (max-width: 480px) {
@@ -886,6 +1075,36 @@ section {
 .flip-card-front,
 .flip-card-back {
     will-change: transform;
+}
+
+/* Enhanced CSS custom properties for smooth animations */
+.flip-card {
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+
+    .flip-card,
+    .flip-card-inner,
+    .flip-card-front,
+    .flip-card-back,
+    .project-item *,
+    .project-links .btn {
+        animation: none !important;
+        transition-duration: 0.2s !important;
+    }
+
+    .flip-card:hover {
+        transform: none !important;
+    }
+
+    .flip-card:hover .flip-card-front .fa-folder,
+    .flip-card:hover .flip-card-front .fa-arrow-up-right-from-square {
+        animation: none !important;
+        transform: scale(1.1) !important;
+    }
 }
 
 /* Fix for potential overflow issues */
