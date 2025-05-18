@@ -845,6 +845,7 @@ section {
     backface-visibility: hidden;
     border-radius: 18px;
     overflow: hidden;
+    overflow-y: auto;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-style: preserve-3d;
@@ -1672,31 +1673,4 @@ section {
     gap: 2rem;
     padding: 0;
     margin: 0;
-}
-
-/* Mobile phones - 2 columns with smaller cards */
-@media (max-width: 768px) {
-    .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        padding: 0 0.5rem;
-    }
-
-    /* Optional: Make cards smaller on mobile */
-    .projects-grid>* {
-        min-height: 200px;
-        /* Adjust as needed */
-    }
-}
-
-/* Very small phones - maintain 2 columns but with tighter spacing */
-@media (max-width: 480px) {
-    .projects-grid {
-        gap: 0.75rem;
-        padding: 0 0.25rem;
-    }
-
-    .projects-grid>* {
-        min-height: 180px;
-    }
 }
