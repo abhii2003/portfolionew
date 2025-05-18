@@ -775,7 +775,7 @@ section {
 /* Projects Grid */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 2rem;
     padding: 0;
     margin: 0;
@@ -1329,15 +1329,6 @@ section {
     overflow: visible;
 }
 
-/* Additional fix for Safari */
-@supports (-webkit-appearance: none) {
-
-    .flip-card-front,
-    .flip-card-back {
-        -webkit-transform-style: preserve-3d;
-        -webkit-backface-visibility: hidden;
-    }
-}
 
 /* Contact Section */
 .contact-content {
@@ -1674,5 +1665,41 @@ section {
     100% {
         transform: translateY(-100vh) scale(1);
         opacity: 0;
+    }
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0;
+    margin: 0;
+}
+
+/* Mobile phones - 2 columns with smaller cards */
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    /* Optional: Make cards smaller on mobile */
+    .projects-grid>* {
+        min-height: 200px;
+        /* Adjust as needed */
+    }
+}
+
+/* Very small phones - maintain 2 columns but with tighter spacing */
+@media (max-width: 480px) {
+    .projects-grid {
+        gap: 0.75rem;
+        padding: 0 0.25rem;
+    }
+
+    .projects-grid>* {
+        min-height: 180px;
     }
 }
