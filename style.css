@@ -201,7 +201,13 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(0, 212, 255, 0.1);
 }
 
 .mobile-menu-btn span {
@@ -210,10 +216,12 @@ body {
     background: var(--text-primary);
     transition: all 0.3s ease;
     display: block;
+    border-radius: 2px;
 }
 
 .mobile-menu-btn.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
+    background: var(--primary-color);
 }
 
 .mobile-menu-btn.active span:nth-child(2) {
@@ -222,6 +230,7 @@ body {
 
 .mobile-menu-btn.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -6px);
+    background: var(--primary-color);
 }
 
 /* Hero Section */
@@ -546,67 +555,363 @@ section {
     text-align: center;
 }
 
-/* Projects Section */
+/* IMPROVED FLIP CARD IMPLEMENTATION */
+/* ================================== */
+
+/* Projects Grid */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
+    padding: 0;
+    margin: 0;
 }
 
-.project-item {
-    background: var(--bg-secondary);
-    border-radius: 12px;
-    padding: 2rem;
-    border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+/* Flip Card Container - The main container */
+.flip-card {
+    background: transparent;
+    width: 100%;
+    height: 420px;
+    perspective: 1000px;
+    border-radius: 18px;
+    cursor: pointer;
     position: relative;
-    overflow: hidden;
+    display: block;
+    outline: none;
+    transition: all 0.3s ease;
 }
 
+.flip-card:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 4px;
+}
+
+/* Flip Card Inner - This rotates on flip */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    transition: transform 0.6s ease-in-out;
+    transform-style: preserve-3d;
+    border-radius: 18px;
+    /* Ensure proper stacking context */
+    transform-origin: center center;
+}
+
+/* HOVER TRIGGER - Fixed flip logic */
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Both faces - front and back */
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    /* Ensure proper rendering */
+    transform-style: preserve-3d;
+}
+
+/* Front face - Default state */
+.flip-card-front {
+    background: rgba(26, 26, 46, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    transform: rotateY(0deg);
+    z-index: 2;
+}
+
+/* Back face - Hidden by default, rotated 180deg */
+.flip-card-back {
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+    transform: rotateY(180deg);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--primary-color);
+    z-index: 1;
+}
+
+/* Project Item - Content inside the front face */
+.project-item {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    transition: all 0.3s ease;
+    border-radius: 18px;
+}
+
+/* Header styling */
 .project-item .item-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
 }
 
 .project-item .fa-folder {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: var(--primary-color);
+    transition: all 0.3s ease;
 }
 
 .project-item .fa-arrow-up-right-from-square {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: var(--text-secondary);
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.project-item:hover .fa-arrow-up-right-from-square {
-    color: var(--primary-color);
+/* Prevent link clicks from interfering with flip */
+.project-item .item-header a {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
 
-.project-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-1);
-    border-color: var(--primary-color);
-}
-
-.project-item h2 {
+/* Content styling */
+.project-item h2,
+.project-item h3 {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
     color: var(--text-primary);
-    transition: color 0.3s;
-}
-
-.project-item h2.heading-hover {
-    color: var(--primary-color);
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
 }
 
 .project-item p {
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.7;
     margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+    font-size: 0.95rem;
+}
+
+/* Tags styling */
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.project-tags li {
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--primary-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Back face content styling */
+.flip-card-back h3 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.flip-card-back p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.project-links .btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline:hover {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+}
+
+.btn-disabled {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+}
+
+/* Subtle hover effects for better UX */
+.flip-card:not(.flipped) .flip-card-front {
+    transition: all 0.3s ease;
+}
+
+.flip-card:hover .flip-card-front .fa-folder {
+    transform: scale(1.1);
+    color: rgba(0, 212, 255, 1);
+}
+
+.flip-card:hover .flip-card-front .fa-arrow-up-right-from-square {
+    transform: scale(1.1);
+    color: var(--primary-color);
+}
+
+/* Optional: Add slight bounce effect to flip */
+.flip-card-inner {
+    animation-fill-mode: both;
+}
+
+/* Optional JavaScript class for manual control */
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Touch devices - tap to flip */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Disable hover on touch devices */
+    .flip-card:hover .flip-card-inner {
+        transform: none;
+    }
+
+    /* Use focus or click for touch devices */
+    .flip-card:focus .flip-card-inner,
+    .flip-card.active .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+}
+
+/* Ensure proper rendering across browsers */
+.flip-card,
+.flip-card-inner,
+.flip-card-front,
+.flip-card-back {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .flip-card {
+        height: 380px;
+    }
+
+    .project-item {
+        padding: 1.5rem;
+    }
+
+    .flip-card-back {
+        padding: 1.5rem;
+    }
+
+    .project-item .fa-folder {
+        font-size: 2rem;
+    }
+
+    .project-item h2,
+    .project-item h3 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .flip-card {
+        height: 350px;
+    }
+
+    .project-item {
+        padding: 1.2rem;
+    }
+
+    .flip-card-back {
+        padding: 1.2rem;
+    }
+
+    .flip-card-back h3 {
+        font-size: 1.6rem;
+    }
+
+    .flip-card-back p {
+        font-size: 1rem;
+    }
+
+    .project-links {
+        flex-direction: column;
+    }
+
+    .project-links .btn {
+        width: 100%;
+    }
+}
+
+/* Performance optimizations */
+.flip-card-inner,
+.flip-card-front,
+.flip-card-back {
+    will-change: transform;
+}
+
+/* Fix for potential overflow issues */
+.flip-card {
+    overflow: visible;
+}
+
+/* Additional fix for Safari */
+@supports (-webkit-appearance: none) {
+
+    .flip-card-front,
+    .flip-card-back {
+        -webkit-transform-style: preserve-3d;
+        -webkit-backface-visibility: hidden;
+    }
 }
 
 /* Contact Section */
@@ -614,7 +919,6 @@ section {
     max-width: 600px;
     margin: 0 auto;
     text-align: center;
-
 }
 
 .footer {
@@ -689,33 +993,94 @@ section {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: flex;
+        z-index: 1001;
+    }
+
     .nav-menu {
         position: fixed;
-        top: 100%;
-        left: 0;
+        top: 0;
         right: 0;
-        background: var(--bg-secondary);
+        bottom: 0;
+        width: 70%;
+        background: rgba(26, 26, 46, 0.98);
+        backdrop-filter: blur(20px);
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
         padding: 2rem;
-        transform: translateY(-100%);
+        margin-top: 4.5rem;
+        transform: translateX(100%);
         transition: transform 0.3s ease;
-        border-top: 1px solid var(--border-color);
+        z-index: 999;
+        height: 100vh;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
     }
 
     .nav-menu.active {
-        transform: translateY(0);
+        transform: translateX(0);
     }
 
-    .mobile-menu-btn {
-        display: flex;
+    .nav-menu li {
+        text-align: center;
+    }
+
+    .nav-link {
+        font-size: 1rem;
+        padding: 0.5rem;
+        display: block;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+        background: rgba(0, 212, 255, 0.1);
+        border-radius: 8px;
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    /* Overlay to prevent body scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
     }
 
     .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 3rem;
+        padding-top: 2rem;
+    }
+
+    .hero-visual {
+        order: -1;
+    }
+
+    .hero-image {
+        width: 250px;
+        height: 250px;
+    }
+
+    .hero-image::after {
+        font-size: 2.5rem;
+    }
+
+    .floating-elements {
+        display: none;
     }
 
     .about-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .projects-grid {
         grid-template-columns: 1fr;
     }
 
@@ -724,13 +1089,91 @@ section {
         display: none;
     }
 
-    .cursor,
-    .cursor-follower {
-        display: none;
+    body {
+        cursor: none;
     }
 
-    body {
-        cursor: auto;
+    /* Adjust section padding for mobile */
+    section {
+        padding: 3rem 0;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .section-header {
+        margin-bottom: 3rem;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .skill-category {
+        padding: 1.5rem;
+    }
+
+    .skills-list {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .skill-item {
+        padding: 0.75rem;
+    }
+
+    .skill-item i {
+        font-size: 1.5rem;
+    }
+
+    .navbar {
+        padding: 1rem;
+    }
+
+    .hero {
+        padding-top: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-menu {
+        width: 80%;
+    }
+
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.4rem;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+    }
+
+    .hero-text .subtitle {
+        font-size: 1.1rem;
+    }
+
+    .hero-text .description {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    .project-item {
+        padding: 1.5rem;
     }
 }
 

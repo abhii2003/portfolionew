@@ -49,7 +49,7 @@
 
   <!-- Social Links -->
   <aside id="media-links" class="social-links">
-    <ul>
+    <ul style="list-style: none;">
       <li>
         <a href="https://github.com/abhii2003" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
       </li>
@@ -158,6 +158,7 @@
       </div>
     </section>
 
+
     <!-- Projects Section -->
     <section id="projects">
       <div class="section-header fade-in">
@@ -166,63 +167,180 @@
         <p class="section-subtitle">A selection of my recent work</p>
       </div>
       <div class="projects-grid projects-container">
-        <a href="https://vitlaa.vercel.app/" target="_blank">
-          <div class="project-item">
-            <div class="item-header">
-              <i class="fa-regular fa-folder"></i>
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+        <!-- WEBSITE AND LMS Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+                <a href="https://vitlaa.vercel.app/" target="_blank" aria-label="Open project">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+              <h2 class="projects-heading">WEBSITE AND LMS</h2>
+              <p>Currently developing a portal using Nextjs, JavaScript, HTML, CSS, and Supabase. Implementing
+                role-based access for students, teachers, and admins to make payments, check attendance, and access
+                class materials etc.</p>
             </div>
-            <h2 class="projects-heading">VITLAA, VIT Chennai</h2>
-            <p>Event website for Workshop on Linear Algebra</p>
-          </div>
-        </a>
-        <a href="https://legalaiaws.netlify.app/" target="_blank">
-          <div class="project-item">
-            <div class="item-header">
-              <i class="fa-regular fa-folder"></i>
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>Next.js</li>
+                <li>Supabase</li>
+                <li>JavaScript</li>
+                <li>HTML/CSS</li>
+              </ul>
+              <p class="project-links">
+                <a href="https://vitlaa.vercel.app/" target="_blank" class="btn btn-outline"
+                  aria-label="Visit Project">Live Demo</a>
+              </p>
             </div>
-            <h2 class="projects-heading">Legal.ai</h2>
-            <p>A concept website for easy legal advice and services (Smart India Hackathon)</p>
           </div>
-        </a>
-        <a href="https://github.com/abhii2003/conference" target="_blank">
-          <div class="project-item">
-            <div class="item-header">
-              <i class="fa-regular fa-folder"></i>
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+
+        <!-- VITLAA Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+                <a href="https://vitlaa.vercel.app/" target="_blank" aria-label="Open project">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+              <h2 class="projects-heading">VITLAA, VIT Chennai</h2>
+              <p>Event website for Workshop on Linear Algebra</p>
             </div>
-            <h2 class="projects-heading">Conference</h2>
-            <p>UI for a conference website (NEXTJS 12)</p>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+              </ul>
+              <p class="project-links">
+                <a href="https://vitlaa.vercel.app/" target="_blank" class="btn btn-outline"
+                  aria-label="Visit Project">Live Demo</a>
+              </p>
+            </div>
           </div>
-        </a>
-        <div class="project-item">
-          <div class="item-header">
-            <i class="fa-regular fa-folder"></i>
-          </div>
-          <h2 class="projects-heading">Freelance</h2>
-          <p>Currently developing a portal using Nextjs, JavaScript, HTML, CSS, and Supabase. Implementing role-based
-            access for students, teachers, and admins to make payments, check attendance, and access class materials
-            etc.</p>
         </div>
-        <div class="project-item">
-          <div class="item-header">
-            <i class="fa-regular fa-folder"></i>
+
+        <!-- Legal.ai Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+                <a href="https://legalaiaws.netlify.app/" target="_blank" aria-label="Open project">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+              <h2 class="projects-heading">Legal.ai</h2>
+              <p>A concept website for easy legal advice and services (Smart India Hackathon)</p>
+            </div>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>React</li>
+                <li>AI/ML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+              </ul>
+              <p class="project-links">
+                <a href="https://legalaiaws.netlify.app/" target="_blank" class="btn btn-outline"
+                  aria-label="Visit Project">Live Demo</a>
+              </p>
+            </div>
           </div>
-          <h2 class="projects-heading">paradox-24</h2>
-          <p>Contributed to building a retro-style Capture the Flag event built with HTML, CSS, JavaScript, Supabase and
-            Google OAuth.</p>
         </div>
-        <div class="project-item">
-          <div class="item-header">
-            <i class="fa-regular fa-folder"></i>
+
+        <!-- Conference Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+                <a href="https://github.com/abhii2003/conference" target="_blank" aria-label="Open project">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+              <h2 class="projects-heading">Conference</h2>
+              <p>UI for a conference website (NEXTJS 12)</p>
+            </div>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>Next.js 12</li>
+                <li>React</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+              </ul>
+              <p class="project-links">
+                <a href="https://github.com/abhii2003/conference" target="_blank" class="btn btn-outline"
+                  aria-label="Visit Project">GitHub</a>
+              </p>
+            </div>
           </div>
-          <h2 class="projects-heading">GDSC - VITC</h2>
-          <p>Contributed to the hackathon website (DevsHouse 2024 VITC), upgraded the official GDSC VITC website from
-            Nextjs version 12 to 13 (including app-based routing)</p>
         </div>
+
+        <!-- Paradox-24 Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+              </div>
+              <h2 class="projects-heading">paradox-24</h2>
+              <p>Contributed to building a retro-style Capture the Flag event built with HTML, CSS, JavaScript, Supabase
+                and Google OAuth.</p>
+            </div>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>Supabase</li>
+                <li>Google OAuth</li>
+              </ul>
+              <p class="project-links">
+                <span class="btn btn-disabled">Private Project</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- GDSC - VITC Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+              </div>
+              <h2 class="projects-heading">GDSC - VITC</h2>
+              <p>Contributed to the hackathon website (DevsHouse 2024 VITC), upgraded the official GDSC VITC website
+                from Nextjs version 12 to 13 (including app-based routing)</p>
+            </div>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>Next.js 13</li>
+                <li>React</li>
+                <li>App Router</li>
+                <li>JavaScript</li>
+              </ul>
+              <p class="project-links">
+                <span class="btn btn-disabled">Contribution</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
+
 
     <!-- Contact Section -->
     <section id="contact">
