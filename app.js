@@ -190,39 +190,74 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
 
+    // Modified flip card logic for app.js
+    // Add this to your existing JavaScript file, replacing the current flip card code
+
     // Flip card on tap/click for mobile and on focus for accessibility
     document.querySelectorAll('.flip-card').forEach(card => {
-        // Flip on click (for mobile)
+        // Remove automatic hover flip by adding this class to all cards
+        card.classList.add('click-to-flip');
+
+        // Flip on click (for all devices)
         card.addEventListener('click', function (e) {
             // Only flip if not clicking a link inside the card
             if (!e.target.closest('a')) {
+                e.preventDefault();
+                // Toggle flipped class
                 this.classList.toggle('flipped');
+
+                // If this card is flipped, unflip all other cards
+                if (this.classList.contains('flipped')) {
+                    document.querySelectorAll('.flip-card').forEach(otherCard => {
+                        if (otherCard !== this) {
+                            otherCard.classList.remove('flipped');
+                        }
+                    });
+                }
             }
         });
+
         // Flip on Enter/Space for keyboard users
         card.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 this.classList.toggle('flipped');
+
+                // If this card is flipped, unflip all other cards
+                if (this.classList.contains('flipped')) {
+                    document.querySelectorAll('.flip-card').forEach(otherCard => {
+                        if (otherCard !== this) {
+                            otherCard.classList.remove('flipped');
+                        }
+                    });
+                }
             }
         });
-        // Remove flip on blur (optional)
-        card.addEventListener('blur', function () {
-            this.classList.remove('flipped');
-        });
-        // 3D tilt effect
+
+        // 3D tilt effect (preserved from original code)
         card.addEventListener('mousemove', e => {
             const inner = card.querySelector('.flip-card-inner');
-            if (!inner) return;
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
             inner.style.transform =
                 `rotateY(${x / 20}deg) rotateX(${-y / 20}deg)`;
         });
+
         card.addEventListener('mouseleave', () => {
             const inner = card.querySelector('.flip-card-inner');
-            if (inner) inner.style.transform = '';
+            // Only reset transform if not flipped
+            if (inner && !card.classList.contains('flipped')) {
+                inner.style.transform = '';
+            }
+        });
+
+        //Close on click outside
+        document.addEventListener('click', function (e) {
+            if (!card.contains(e.target) && card.classList.contains('flipped')) {
+                card.classList.remove('flipped');
+            }
         });
     });
+
 });

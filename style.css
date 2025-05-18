@@ -768,6 +768,7 @@ section {
     animation-delay: 0.3s;
 }
 
+
 /* Projects Grid */
 .projects-grid {
     display: grid;
@@ -784,7 +785,6 @@ section {
     height: 420px;
     perspective: 1000px;
     border-radius: 18px;
-
     position: relative;
     display: block;
     outline: none;
@@ -816,11 +816,17 @@ section {
     transform-origin: center center;
     transform: rotateY(0deg);
     will-change: transform;
+    z-index: 1;
 }
 
-/* AUTO FLIP ON HOVER with enhanced easing */
-.flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
+/* Disable AUTO FLIP ON HOVER - will be controlled by click instead */
+.flip-card.click-to-flip:hover .flip-card-inner {
+    transform: rotateY(0deg);
+}
+
+/* Enable flip by class instead */
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg) !important;
 }
 
 /* Tilt effect based on cursor position */
@@ -1177,36 +1183,26 @@ section {
     cursor: not-allowed;
 }
 
-/* Remove any conflicting classes that might interfere */
-.flip-card.flipped .flip-card-inner {
-    transform: rotateY(180deg);
+/* Visual feedback on click */
+.flip-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+/* Enhanced focus state for accessibility */
+.flip-card:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 4px;
 }
 
 /* Touch devices - tap to flip */
 @media (hover: none) and (pointer: coarse) {
 
-    /* Disable hover on touch devices */
-    .flip-card:hover .flip-card-inner {
-        transform: rotateY(0deg);
-    }
-
-    /* Disable tilt and other hover effects on touch */
-    .flip-card:hover {
-        transform: none;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    }
-
     /* Use focus/active for touch devices instead */
     .flip-card:focus .flip-card-inner,
     .flip-card.active .flip-card-inner,
     .flip-card.flipped .flip-card-inner {
-        transform: rotateY(180deg);
-    }
-
-    /* Add touch feedback */
-    .flip-card:active {
-        transform: scale(0.98);
-        transition: transform 0.1s ease;
+        transform: rotateY(180deg) !important;
     }
 }
 
@@ -1250,6 +1246,11 @@ section {
     /* Reduce motion on smaller screens for performance */
     .flip-card:hover {
         transform: translateY(-5px) scale(1.01);
+    }
+
+    /* Ensure flip still works properly on mobile */
+    .flip-card.flipped .flip-card-inner {
+        transform: rotateY(180deg) !important;
     }
 }
 
