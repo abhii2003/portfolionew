@@ -316,7 +316,7 @@ body {
     font-weight: 500;
     transition: all 0.3s ease;
     border: 2px solid transparent;
-
+    cursor: none;
     font-family: inherit;
     font-size: 1rem;
     position: relative;
@@ -1309,6 +1309,7 @@ section {
     .project-links .btn {
         animation: none !important;
         transition-duration: 0.2s !important;
+        cursor: none;
     }
 
     .flip-card:hover {
@@ -1366,6 +1367,7 @@ section {
     color: var(--text-muted);
     font-size: 1.5rem;
     transition: all 0.3s ease;
+    cursor: none;
 }
 
 .social-links a:hover {

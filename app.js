@@ -190,8 +190,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
 
-    // Modified flip card logic for app.js
-    // Add this to your existing JavaScript file, replacing the current flip card code
 
     // Flip card on tap/click for mobile and on focus for accessibility
     document.querySelectorAll('.flip-card').forEach(card => {
