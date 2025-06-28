@@ -2,20 +2,26 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Abhinav Kushwaha - Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  <!-- Fonts and Icons -->
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  <link rel="icon" type="image/png" href="./logo.png" style="border-radius: 50%;">
+
+  <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body
-  class="font-inter bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 min-h-screen overflow-hidden select-none cursor-none">
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading">
+    <div class="loader"></div>
+  </div>
 
   <!-- Custom Cursor -->
   <div class="cursor" id="cursor"></div>
@@ -24,554 +30,376 @@
   <!-- Particles Background -->
   <div class="particles" id="particles"></div>
 
-  <!-- Desktop -->
-  <div class="desktop relative w-full h-screen" id="desktop">
-
-    <!-- Desktop Clock Wallpaper -->
-    <div class="desktop-clock" id="desktopClock"></div>
-
-    <!-- Desktop Icons (Added) -->
-    <div class="desktop-icons-container">
-      <div class="desktop-icon" data-app="about">
-        <i class="fas fa-user"></i>
-        <span>About Me</span>
-      </div>
-      <div class="desktop-icon" data-app="projects">
-        <i class="fas fa-folder"></i>
-        <span>Projects</span>
-      </div>
-      <div class="desktop-icon" data-app="skills">
-        <i class="fas fa-code"></i>
-        <span>Skills</span>
-      </div>
-      <div class="desktop-icon" data-app="contact">
-        <i class="fas fa-envelope"></i>
-        <span>Contact</span>
-      </div>
-      <div class="desktop-icon" data-app="resume">
-        <i class="fas fa-file-pdf"></i>
-        <span>Resume</span>
-      </div>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="logo">AK</div>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#home" class="nav-link" data-number="01.">Home</a></li>
+        <li><a href="#about" class="nav-link" data-number="02.">About</a></li>
+        <li><a href="#projects" class="nav-link" data-number="03.">Projects</a></li>
+        <li><a href="#contact" class="nav-link" data-number="04.">Contact</a></li>
+      </ul>
+      <button class="mobile-menu-btn hamburger" id="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
+  </nav>
 
-    <!-- Windows Container -->
-    <div class="windows-container" id="windowsContainer">
+  <!-- Social Links -->
+  <aside id="media-links" class="social-links">
+    <ul style="list-style: none;">
+      <li>
+        <a href="https://github.com/abhii2003" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/abhinav-kushwaha-8603b2247" target="_blank" aria-label="LinkedIn"><i
+            class="fab fa-linkedin"></i></a>
+      </li>
+      <!-- <li>
+        <a href="https://twitter.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      </li> -->
+    </ul>
+  </aside>
 
-      <!-- About Window -->
-      <div class="window" id="aboutWindow" data-app="about">
-        <div class="window-header">
-          <div class="window-title">
-            <i class="fas fa-user mr-2"></i>
-            About Me
-          </div>
-          <div class="window-controls">
-            <button class="control-btn minimize-btn">−</button>
-            <!-- <button class="control-btn maximize-btn">□</button> -->
-            <button class="control-btn close-btn">×</button>
-          </div>
-        </div>
-        <div class="window-content">
-          <div class="p-6 h-full overflow-y-auto">
-            <div class="flex flex-col lg:flex-row gap-8">
-              <div class="flex-1">
-                <h1 class="text-3xl font-bold mb-4 text-white">Hi, I'm <span class="text-cyan-400">Abhinav
-                    Kushwaha</span></h1>
-                <p class="text-xl text-cyan-300 mb-4 font-mono"><span id="typing-text"></span></p>
-                <div class="space-y-4 text-gray-300">
-                  <p>I'm a Computer Science explorer with a passion for crafting creative digital solutions and diving
-                    into intricate problems. Armed with a solid theoretical foundation in data structures, algorithms,
-                    and software engineering, I love bringing ideas to life through full-stack web development.</p>
-                  <p>My journey recently took me deep into building a secure, role-based LMS portal, where I got to
-                    tackle features like user management, attendance tracking, fee processing, and library cataloging,
-                    powered by technologies like <strong class="text-cyan-300">Next.js, React, PostgreSQL, Prisma,
-                      MinIO, and NextAuth.js</strong>.</p>
-                  <p>Beyond that, my projects span a fun range, from developing an <strong
-                      class="text-cyan-300">AI/hardware-integrated bot</strong> for reconnaissance, crafting responsive
-                    event and conference websites using <strong class="text-cyan-300">HTML, CSS, and
-                      JavaScript/React</strong>, to contributing to collaborative efforts.</p>
-                </div>
-                <div class="mt-6 flex flex-wrap gap-4">
-                  <button
-                    class="bg-gradient-to-r from-cyan-400 to-blue-500 px-6 py-2 rounded-lg text-white font-medium hover:scale-105 transition-transform cursor-none"
-                    onclick="openGithub()">
-                    <i class="fab fa-github mr-2"></i>GitHub
-                  </button>
-                  <button
-                    class="border border-cyan-400 text-cyan-400 px-6 py-2 rounded-lg font-medium hover:bg-cyan-400 hover:text-black transition-all cursor-none"
-                    onclick="downloadResume()">
-                    <i class="fas fa-download mr-2"></i>Resume
-                  </button>
-                </div>
-              </div>
-              <div class="flex-shrink-0 flex justify-center items-center lg:justify-start">
-                <div
-                  class="w-64 h-64 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center relative">
-                  <div class="w-56 h-56 rounded-full bg-slate-900 flex items-center justify-center">
-                    <span class="text-4xl font-mono font-bold text-cyan-400" style="transform: rotate(90);">:)</span>
-                  </div>
-                  <div class="absolute top-4 left-4 w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center">
-                    <i class="fab fa-react text-cyan-400 text-xl"></i>
-                  </div>
-                  <div
-                    class="absolute top-4 right-4 w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center">
-                    <i class="fab fa-js text-yellow-400 text-xl"></i>
-                  </div>
-                  <div
-                    class="absolute bottom-4 left-4 w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center">
-                    <i class="fab fa-python text-green-400 text-xl"></i>
-                  </div>
-                  <div
-                    class="absolute bottom-4 right-4 w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-database text-purple-400 text-xl"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Projects Window -->
-      <div class="window" id="projectsWindow" data-app="projects">
-        <div class="window-header">
-          <div class="window-title">
-            <i class="fas fa-folder mr-2"></i>
-            Projects
-          </div>
-          <div class="window-controls">
-            <button class="control-btn minimize-btn">−</button>
-            <!-- <button class="control-btn maximize-btn">□</button> -->
-            <button class="control-btn close-btn">×</button>
-          </div>
-        </div>
-        <div class="window-content">
-          <div class="p-6 h-full overflow-y-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-              <!-- Project 1 -->
-              <div class="project-card group">
-                <div class="project-front">
-                  <div class="flex justify-between items-start mb-4">
-                    <i class="fas fa-folder text-cyan-400 text-3xl group-hover:scale-110 transition-transform"></i>
-                  </div>
-                  <h3 class="text-xl font-bold mb-3 text-white">WEBSITE AND LMS</h3>
-                  <p class="text-gray-300 text-sm leading-relaxed">Developed and deployed a portal using Next.js,
-                    JavaScript, HTML, CSS, Prisma and PostgreSQL. Implementing role-based access for students, teachers,
-                    and admins.</p>
-                </div>
-                <div class="project-back">
-                  <h4 class="text-lg font-bold text-cyan-400 mb-4">Tech Stack</h4>
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="tech-tag">Next.js</span>
-                    <span class="tech-tag">React</span>
-                    <span class="tech-tag">TypeScript</span>
-                    <span class="tech-tag">PostgreSQL</span>
-                    <span class="tech-tag">Prisma</span>
-                    <span class="tech-tag">MinIO</span>
-                    <span class="tech-tag">Tailwind</span>
-                    <span class="tech-tag">NextAuth.js</span>
-                  </div>
-                  <a href="https://finursingcollege.in" target="_blank" class="project-link">
-                    <i class="fas fa-external-link-alt mr-2"></i>Live Demo
-                  </a>
-                </div>
-              </div>
-
-              <!-- Project 2 -->
-              <div class="project-card group">
-                <div class="project-front">
-                  <div class="flex justify-between items-start mb-4">
-                    <i class="fas fa-folder text-cyan-400 text-3xl group-hover:scale-110 transition-transform"></i>
-                  </div>
-                  <h3 class="text-xl font-bold mb-3 text-white">VITLAA, VIT Chennai</h3>
-                  <p class="text-gray-300 text-sm leading-relaxed">Event website for Workshop on Linear Algebra with
-                    responsive design and modern UI.</p>
-                </div>
-                <div class="project-back">
-                  <h4 class="text-lg font-bold text-cyan-400 mb-4">Tech Stack</h4>
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="tech-tag">HTML</span>
-                    <span class="tech-tag">CSS</span>
-                    <span class="tech-tag">JavaScript</span>
-                  </div>
-                  <a href="https://vitlaa.vercel.app/" target="_blank" class="project-link">
-                    <i class="fas fa-external-link-alt mr-2"></i>Live Demo
-                  </a>
-                </div>
-              </div>
-
-              <!-- Project 3 -->
-              <div class="project-card group">
-                <div class="project-front">
-                  <div class="flex justify-between items-start mb-4">
-                    <i class="fas fa-folder text-cyan-400 text-3xl group-hover:scale-110 transition-transform"></i>
-                  </div>
-                  <h3 class="text-xl font-bold mb-3 text-white">Legal.ai</h3>
-                  <p class="text-gray-300 text-sm leading-relaxed">A concept website for easy legal advice and services
-                    (Smart India Hackathon project).</p>
-                </div>
-                <div class="project-back">
-                  <h4 class="text-lg font-bold text-cyan-400 mb-4">Tech Stack</h4>
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="tech-tag">React</span>
-                    <span class="tech-tag">AI/ML</span>
-                    <span class="tech-tag">CSS</span>
-                    <span class="tech-tag">JavaScript</span>
-                  </div>
-                  <a href="https://legalaiaws.netlify.app/" target="_blank" class="project-link">
-                    <i class="fas fa-external-link-alt mr-2"></i>Live Demo
-                  </a>
-                </div>
-              </div>
-
-              <!-- Project 4 -->
-              <div class="project-card group">
-                <div class="project-front">
-                  <div class="flex justify-between items-start mb-4">
-                    <i class="fas fa-folder text-cyan-400 text-3xl group-hover:scale-110 transition-transform"></i>
-                  </div>
-                  <h3 class="text-xl font-bold mb-3 text-white">Conference Website</h3>
-                  <p class="text-gray-300 text-sm leading-relaxed">UI for a conference website built with Next.js 12 and
-                    modern design principles.</p>
-                </div>
-                <div class="project-back">
-                  <h4 class="text-lg font-bold text-cyan-400 mb-4">Tech Stack</h4>
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="tech-tag">Next.js 12</span>
-                    <span class="tech-tag">React</span>
-                    <span class="tech-tag">CSS</span>
-                    <span class="tech-tag">JavaScript</span>
-                  </div>
-                  <a href="https://github.com/abhii2003/conference" target="_blank" class="project-link">
-                    <i class="fab fa-github mr-2"></i>GitHub
-                  </a>
-                </div>
-              </div>
-
-              <!-- Project 5 -->
-              <div class="project-card group">
-                <div class="project-front">
-                  <div class="flex justify-between items-start mb-4">
-                    <i class="fas fa-folder text-cyan-400 text-3xl group-hover:scale-110 transition-transform"></i>
-                  </div>
-                  <h3 class="text-xl font-bold mb-3 text-white">Paradox-24</h3>
-                  <p class="text-gray-300 text-sm leading-relaxed">Contributed to building a retro-style Capture the
-                    Flag event with authentication.</p>
-                </div>
-                <div class="project-back">
-                  <h4 class="text-lg font-bold text-cyan-400 mb-4">Tech Stack</h4>
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="tech-tag">HTML</span>
-                    <span class="tech-tag">CSS</span>
-                    <span class="tech-tag">JavaScript</span>
-                    <span class="tech-tag">Supabase</span>
-                    <span class="tech-tag">Google OAuth</span>
-                  </div>
-                  <span class="project-link bg-gray-600 cursor-not-allowed">
-                    <i class="fas fa-lock mr-2"></i>Private Project
-                  </span>
-                </div>
-              </div>
-
-              <!-- Project 6 -->
-              <div class="project-card group">
-                <div class="project-front">
-                  <div class="flex justify-between items-start mb-4">
-                    <i class="fas fa-folder text-cyan-400 text-3xl group-hover:scale-110 transition-transform"></i>
-                  </div>
-                  <h3 class="text-xl font-bold mb-3 text-white">GDSC - VITC</h3>
-                  <p class="text-gray-300 text-sm leading-relaxed">Contributed to the hackathon website and upgraded
-                    GDSC VITC website to Next.js 13.</p>
-                </div>
-                <div class="project-back">
-                  <h4 class="text-lg font-bold text-cyan-400 mb-4">Tech Stack</h4>
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="tech-tag">Next.js 13</span>
-                    <span class="tech-tag">React</span>
-                    <span class="tech-tag">App Router</span>
-                    <span class="tech-tag">JavaScript</span>
-                    <span class="tech-tag">Tailwind CSS</span>
-                    <span class="tech-tag">Shadcn/ui</span>
-                  </div>
-                  <span class="project-link bg-purple-600">
-                    <i class="fas fa-hands-helping mr-2"></i>Contribution
-                  </span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Skills Window -->
-      <div class="window" id="skillsWindow" data-app="skills">
-        <div class="window-header">
-          <div class="window-title">
-            <i class="fas fa-code mr-2"></i>
-            Skills
-          </div>
-          <div class="window-controls">
-            <button class="control-btn minimize-btn">−</button>
-            <!-- <button class="control-btn maximize-btn">□</button> -->
-            <button class="control-btn close-btn">×</button>
-          </div>
-        </div>
-        <div class="window-content">
-          <div class="p-6 h-full overflow-y-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-              <!-- Languages -->
-              <div class="skill-category">
-                <h3 class="text-xl font-bold text-cyan-400 mb-4 font-mono">Languages</h3>
-                <div class="space-y-3">
-                  <div class="skill-item">
-                    <i class="fab fa-python text-3xl text-green-400"></i>
-                    <span>Python</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="devicon-cplusplus-plain text-3xl text-blue-400"></i>
-                    <span>C++</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="fab fa-java text-3xl text-orange-400"></i>
-                    <span>Java</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="fab fa-js text-3xl text-yellow-400"></i>
-                    <span>JavaScript</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="devicon-typescript-plain text-3xl text-blue-500"></i>
-                    <span>TypeScript</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Frontend -->
-              <div class="skill-category">
-                <h3 class="text-xl font-bold text-cyan-400 mb-4 font-mono">Frontend</h3>
-                <div class="space-y-3">
-                  <div class="skill-item">
-                    <i class="fab fa-html5 text-3xl text-orange-500"></i>
-                    <span>HTML</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="fab fa-css3-alt text-3xl text-blue-500"></i>
-                    <span>CSS</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="fab fa-react text-3xl text-cyan-400"></i>
-                    <span>React.js</span>
-                  </div>
-                  <div class="skill-item">
-                    <div class="w-8 h-8 bg-white rounded flex items-center justify-center">
-                      <span class="text-black font-bold text-sm">N</span>
-                    </div>
-                    <span>Next.js</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="devicon-tailwindcss-plain text-3xl text-cyan-400"></i>
-                    <span>Tailwind CSS</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Backend & Database -->
-              <div class="skill-category">
-                <h3 class="text-xl font-bold text-cyan-400 mb-4 font-mono">Backend & DB</h3>
-                <div class="space-y-3">
-                  <div class="skill-item">
-                    <i class="fab fa-node-js text-3xl text-green-500"></i>
-                    <span>Node.js</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="fas fa-database text-3xl text-blue-400"></i>
-                    <span>SQL</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="devicon-postgresql-plain text-3xl text-blue-500"></i>
-                    <span>PostgreSQL</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="fas fa-database text-3xl text-green-400"></i>
-                    <span>Supabase</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="devicon-prisma-plain text-3xl text-purple-400"></i>
-                    <span>Prisma (ORM)</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Tools & Platforms -->
-              <div class="skill-category">
-                <h3 class="text-xl font-bold text-cyan-400 mb-4 font-mono">Tools & Platforms</h3>
-                <div class="space-y-3">
-                  <div class="skill-item">
-                    <i class="fab fa-git-alt text-3xl text-orange-500"></i>
-                    <span>Git</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="fab fa-github text-3xl text-white"></i>
-                    <span>GitHub</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="fas fa-cloud text-3xl text-blue-400"></i>
-                    <span>Digital Ocean</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="fas fa-hdd text-3xl text-purple-400"></i>
-                    <span>MinIO</span>
-                  </div>
-                  <div class="skill-item">
-                    <i class="devicon-nginx-plain text-3xl text-green-500"></i>
-                    <span>Nginx</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Contact Window -->
-      <div class="window" id="contactWindow" data-app="contact">
-        <div class="window-header">
-          <div class="window-title">
-            <i class="fas fa-envelope mr-2"></i>
-            Contact
-          </div>
-          <div class="window-controls">
-            <button class="control-btn minimize-btn">−</button>
-            <!-- <button class="control-btn maximize-btn">□</button> -->
-            <button class="control-btn close-btn">×</button>
-          </div>
-        </div>
-        <div class="window-content">
-          <div class="p-8 h-full flex items-center justify-center">
-            <div class="text-center max-w-2xl">
-              <h2 class="text-4xl font-bold mb-6 text-white">Get in touch</h2>
-              <p class="text-gray-300 text-lg mb-8 leading-relaxed">
-                Your feedback is invaluable! If you're interested in collaborating or discussing potential
-                opportunities,
-                please feel free to reach out. I'm always open to exploring new projects and working together to create
-                innovative solutions. Thank you for your time!
-              </p>
-              <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <button onclick="sendEmail()"
-                  class="bg-gradient-to-r from-cyan-400 to-blue-500 px-8 py-3 rounded-lg text-white font-medium hover:scale-105 transition-transform cursor-none flex items-center">
-                  <i class="fas fa-envelope mr-3"></i>
-                  Contact Me!
-                </button>
-                <div class="flex gap-4">
-                  <a href="https://github.com/abhii2003" target="_blank" class="social-link">
-                    <i class="fab fa-github text-2xl"></i>
-                  </a>
-                  <a href="https://www.linkedin.com/in/abhinav-kushwaha-8603b2247" target="_blank" class="social-link">
-                    <i class="fab fa-linkedin text-2xl"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="mt-8 p-4 bg-slate-800 rounded-lg">
-                <p class="text-cyan-400 font-mono">abhinavkush2003@gmail.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Resume Window -->
-      <div class="window" id="resumeWindow" data-app="resume">
-        <div class="window-header">
-          <div class="window-title">
-            <i class="fas fa-file-pdf mr-2"></i>
-            Resume
-          </div>
-          <div class="window-controls">
-            <button class="control-btn minimize-btn">−</button>
-            <!-- <button class="control-btn maximize-btn">□</button> -->
-            <button class="control-btn close-btn">×</button>
-          </div>
-        </div>
-        <div class="window-content">
-          <div class="p-8 h-full flex items-center justify-center">
-            <div class="text-center">
-              <i class="fas fa-file-pdf text-8xl text-red-500 mb-6"></i>
-              <h2 class="text-2xl font-bold text-white mb-4">Resume Download</h2>
-              <p class="text-gray-300 mb-6">Download my latest resume to learn more about my experience and
-                qualifications.</p>
-              <button onclick="downloadResume()"
-                class="bg-gradient-to-r from-red-500 to-orange-500 px-8 py-3 rounded-lg text-white font-medium hover:scale-105 transition-transform cursor-none">
-                <i class="fas fa-download mr-2"></i>
-                Download Resume
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Taskbar -->
-    <div class="taskbar">
-      <div class="taskbar-left">
-        <!-- Changed icon from fas fa-th to fas fa-border-all -->
-        <div class="start-button" id="startButton">
-          <i class="fas fa-border-all"></i>
-        </div>
-      </div>
-      <div class="taskbar-center" id="taskbarApps">
-        <!-- Active apps will appear here as icons -->
-      </div>
-      <div class="taskbar-right">
-        <div class="system-tray">
-          <span class="clock" id="clock"></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Start Menu -->
-    <div class="start-menu" id="startMenu">
-      <div class="start-menu-header">
-        <div class="user-info">
-          <div
-            class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center">
-            <span class="text-white font-bold text-xl">AK</span>
-          </div>
-          <div>
-            <div class="font-bold text-white">Abhinav Kushwaha</div>
-            <div class="text-sm text-gray-400">Full Stack Developer</div>
-          </div>
-        </div>
-      </div>
-      <div class="start-menu-apps">
-        <div class="start-app" data-app="about">
-          <i class="fas fa-user text-cyan-400"></i>
-          <span>About Me</span>
-        </div>
-        <div class="start-app" data-app="projects">
-          <i class="fas fa-folder text-purple-400"></i>
-          <span>Projects</span>
-        </div>
-        <div class="start-app" data-app="skills">
-          <i class="fas fa-code text-green-400"></i>
-          <span>Skills</span>
-        </div>
-        <div class="start-app" data-app="contact">
-          <i class="fas fa-envelope text-orange-400"></i>
-          <span>Contact</span>
-        </div>
-        <div class="start-app" data-app="resume">
-          <i class="fas fa-file-pdf text-red-400"></i>
-          <span>Resume</span>
-        </div>
-      </div>
-    </div>
-
+  <!-- Email Link -->
+  <div class="email-link">
+    <a onclick="mailTo()" style="cursor: pointer;">abhinavkush2003@gmail.com</a>
   </div>
 
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="hero-text fade-in">
+          <h1>Hi, I'm <span class="highlight">Abhinav Kushwaha</span></h1>
+          <p class="subtitle">I'm a <span id="changing-element"></span></p>
+          <p class="description">
+            With a strong foundation in both front-end and back-end development, I strive to deliver seamless digital
+            experiences that are both functional and visually appealing.
+          </p>
+          <div class="hero-cta">
+            <button onclick="opneGithubProfile()" class="btn btn-primary">Check out my GitHub :)</button>
+            <button onclick="downloadFile()" class="btn btn-outline">Download Resume :)</button>
+          </div>
+        </div>
+        <div class="hero-visual slide-in-right">
+          <div class="hero-image"></div>
+          <div class="floating-elements">
+            <div class="floating-element"><i class="fab fa-react"></i></div>
+            <div class="floating-element"><i class="fab fa-js"></i></div>
+            <div class="floating-element"><i class="fab fa-python"></i></div>
+            <div class="floating-element"><i class="fas fa-database"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="section-header fade-in">
+        <p class="section-number">02.</p>
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">Passionate developer with a drive for innovation and excellence</p>
+      </div>
+      <div class="about-content">
+        <div class="about-text slide-in-left">
+          <p>
+            I'm a Computer Science explorer with a passion for crafting creative digital solutions and diving into
+            intricate problems. Armed with a solid theoretical foundation in data structures, algorithms, and software
+            engineering, I love bringing ideas to life through full-stack web development. My journey recently took me
+            deep into building a secure, role-based LMS portal, where I got to tackle features like user management,
+            attendance tracking, fee processing, and library cataloging, powered by technologies like <strong>Next.js,
+              React, PostgreSQL, Prisma, MinIO, and NextAuth.js</strong>.
+          </p>
+          <p>
+            Beyond that, my projects span a fun range, from developing an <strong>AI/hardware-integrated bot</strong>
+            for reconnaissance, crafting responsive event and conference websites using <strong>HTML, CSS, and
+              JavaScript/React</strong>, to contributing to collaborative efforts like a retro-style <strong>CTF event
+              site with Supabase and Google OAuth</strong> and upgrading large websites with <strong>Next.js 13 and the
+              App Router</strong>. My toolkit is packed with languages like <strong>Python, C++, and Java</strong>, and
+            a strong web stack including <strong>Next.js, React, Node.js, PostgreSQL, Supabase, Tailwind CSS, and
+              Prisma</strong>.
+          </p>
+          <p>
+            I thrive on leveraging a robust tech stack to build applications that truly deliver exceptional user
+            experiences and meaningful results. I'm always eager to learn new technologies and contribute to exciting,
+            impactful projects.
+          </p>
+        </div>
+        <div class="about-image slide-in-right">
+          <div class="skills-grid">
+            <div class="skill-category">
+              <h3>Languages</h3>
+              <div class="skills-list">
+                <div class="skill-item"><i class="fab fa-python"></i><span>Python</span></div>
+                <div class="skill-item"><i class="fa fa-c"></i><span>C</span></div>
+                <div class="skill-item"><i class="devicon-cplusplus-plain"></i><span>C++</span></div>
+                <!-- Keep Devicon if other Devicon icons are used -->
+                <div class="skill-item"><i class="fab fa-java"></i><span>Java</span></div>
+                <div class="skill-item"><i class="fab fa-js"></i><span>JavaScript</span></div>
+                <div class="skill-item"><i class="devicon-typescript-plain"></i><span>TypeScript</span></div>
+                <!-- Keep Devicon if other Devicon icons are used -->
+              </div>
+            </div>
+            <div class="skill-category">
+              <h3>Frontend</h3>
+              <div class="skills-list">
+                <div class="skill-item"><i class="fab fa-html5"></i><span>HTML</span></div>
+                <div class="skill-item"><i class="fab fa-css3-alt"></i><span>CSS</span></div>
+                <div class="skill-item"><i class="fab fa-sass"></i><span>SCSS</span></div>
+                <div class="skill-item"><i class="fab fa-react"></i><span>React.js</span></div>
+                <div class="skill-item">
+                  <img src="https://img.icons8.com/?size=100&id=r2OarXWQc7B6&format=png&color=00d4ff" alt="Next.js"
+                    style="width: 25px; height: 25px; margin-right: 8px;" />
+                  <span>Next.js</span>
+                </div>
+
+                <div class="skill-item"><i class="devicon-tailwindcss-plain"></i><span>Tailwind CSS</span></div>
+                <div class="skill-item"><i class="fas fa-cube"></i><span>Shadcn/ui</span></div>
+                <div class="skill-item"><i class="fab fa-figma"></i><span>Figma</span></div>
+              </div>
+            </div>
+            <div class="skill-category">
+              <h3>Backend, DB & ORM</h3>
+              <div class="skills-list">
+                <div class="skill-item"><i class="fab fa-node-js"></i><span>Node.js</span></div>
+                <div class="skill-item"><img
+                    src="https://img.icons8.com/?size=100&id=r2OarXWQc7B6&format=png&color=00d4ff" alt="Next.js"
+                    style="width: 25px; height: 25px; margin-right: 8px;" />
+                  <span>Next.js</span>
+                </div>
+                <div class="skill-item"><i class="fas fa-database"></i><span>SQL</span></div>
+                <div class="skill-item"><i class="devicon-postgresql-plain"></i><span>PostgreSQL</span></div>
+                <div class="skill-item"><i class="fas fa-database"></i><span>Supabase</span></div>
+                <div class="skill-item"><i class="devicon-prisma-plain"></i><span>Prisma (ORM)</span></div>
+              </div>
+            </div>
+            <div class="skill-category">
+              <h3>Tools & Platforms</h3>
+              <div class="skills-list">
+                <div class="skill-item"><i class="fab fa-git-alt"></i><span>Git</span></div>
+                <div class="skill-item"><i class="fab fa-github"></i><span>GitHub</span></div>
+                <div class="skill-item"><i class="fas fa-cloud"></i><span>Digital Ocean</span></div>
+                <div class="skill-item"><i class="fas fa-hdd"></i><span>MinIO</span></div>
+                <div class="skill-item"><i class="devicon-nginx-plain"></i><span>Nginx</span></div>
+                <div class="skill-item"><i class="fas fa-cogs"></i><span>PM2</span></div>
+                <div class="skill-item"><i class="fas fa-lock"></i><span>NextAuth.js</span></div>
+                <div class="skill-item"><i class="fas fa-bolt"></i><span>Google OAuth/APIs</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <div class="section-header fade-in">
+        <p class="section-number">03.</p>
+        <h2 class="section-title">Projects and Contributions</h2>
+        <p class="section-subtitle">A selection of my recent work</p>
+      </div>
+      <div class="projects-grid projects-container">
+
+        <!-- WEBSITE AND LMS Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+              </div>
+              <h2 class="projects-heading">WEBSITE AND LMS</h2>
+              <p>Developed and deployed a portal using Nextjs, JavaScript, HTML, CSS, Prisma and PostgreSQL.
+                Implementing
+                role-based access for students, teachers, and admins to make payments, check attendance, and access
+                class materials etc.</p>
+            </div>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>Next.js</li>
+                <li>React</li>
+                <li>TypeScript</li>
+                <li>PostgreSQL</li>
+                <li>Prisma (ORM)</li>
+                <li>MinIO (Object Storage)</li>
+                <li>Tailwind CSS</li>
+                <li>Shadcn/ui </li>
+                <li>NextAuth.js (Authentication)</li>
+              </ul>
+              <p class="project-links">
+                <a href="https://finursingcollege.in" target="_blank" class="btn btn-outline"
+                  aria-label="Visit Project">Live Demo</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- VITLAA Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+              </div>
+              <h2 class="projects-heading">VITLAA, VIT Chennai</h2>
+              <p>Event website for Workshop on Linear Algebra</p>
+            </div>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+              </ul>
+              <p class="project-links">
+                <a href="https://vitlaa.vercel.app/" target="_blank" class="btn btn-outline"
+                  aria-label="Visit Project">Live Demo</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Legal.ai Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+              </div>
+              <h2 class="projects-heading">Legal.ai</h2>
+              <p>A concept website for easy legal advice and services (Smart India Hackathon)</p>
+            </div>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>React</li>
+                <li>AI/ML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+              </ul>
+              <p class="project-links">
+                <a href="https://legalaiaws.netlify.app/" target="_blank" class="btn btn-outline"
+                  aria-label="Visit Project">Live Demo</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conference Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+              </div>
+              <h2 class="projects-heading">Conference</h2>
+              <p>UI for a conference website (NEXTJS 12)</p>
+            </div>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>Next.js 12</li>
+                <li>React</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+              </ul>
+              <p class="project-links">
+                <a href="https://github.com/abhii2003/conference" target="_blank" class="btn btn-outline"
+                  aria-label="Visit Project">GitHub</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paradox-24 Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+              </div>
+              <h2 class="projects-heading">paradox-24</h2>
+              <p>Contributed to building a retro-style Capture the Flag event built with HTML, CSS, JavaScript, Supabase
+                and Google OAuth.</p>
+            </div>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>Supabase</li>
+                <li>Google OAuth</li>
+              </ul>
+              <p class="project-links">
+                <span class="btn btn-disabled">Private Project</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- GDSC - VITC Project -->
+        <div class="flip-card project-card" tabindex="0">
+          <div class="flip-card-inner">
+            <div class="flip-card-front project-item">
+              <div class="item-header">
+                <i class="fa-regular fa-folder"></i>
+              </div>
+              <h2 class="projects-heading">GDSC - VITC</h2>
+              <p>Contributed to the hackathon website (DevsHouse 2024 VITC), upgraded the official GDSC VITC website
+                from Nextjs version 12 to 13 </p>
+            </div>
+            <div class="flip-card-back project-item" style="position: absolute;">
+              <h3>Tech Stack</h3>
+              <ul class="project-tags">
+                <li>Next.js 13</li>
+                <li>React</li>
+                <li>App Router</li>
+                <li>JavaScript</li>
+                <li>Tailwind CSS</li>
+                <li>Shadcn/ui </li>
+              </ul>
+              <p class="project-links">
+                <span class="btn btn-disabled">Contribution</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="contact-content">
+        <p class="section-number">04.</p>
+        <h1 class="section-title">
+          Contact
+        </h1>
+        <h2 style="margin-top: 50px;">Get in touch</h2>
+        <p>
+          Your feedback is invaluable! If you’re interested in collaborating or discussing potential opportunities,
+          please feel free to reach out. I’m always open to exploring new projects and working together to create
+          innovative solutions. Thank you for your time!
+        </p>
+        <button class="btn btn-primary" style="margin-top: 30px;" onclick="mailTo()">Contact me!</button>
+      </div>
+    </section>
+  </main>
+  <footer class="footer" id="footer">
+    &copy; 2025 Abhinav Kushwaha. Designed & Built by Abhinav Kushwaha.
+  </footer>
+
+  <!-- JS Libraries -->
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <!-- External JS -->
   <script src="app.js"></script>
 </body>
 
