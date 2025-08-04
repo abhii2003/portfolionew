@@ -14,7 +14,9 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
+    const subject = encodeURIComponent("Contact from Portfolio")
+    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`)
+    window.location.href = `mailto:abhinavkush2003@gmail.com?subject=${subject}&body=${body}`
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
