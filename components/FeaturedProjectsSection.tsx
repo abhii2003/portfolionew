@@ -1,5 +1,6 @@
 "use client"
 import Link from "next/link"
+import React, { useState } from "react"
 const featuredProjects = [
     {
         id: 1,
@@ -8,7 +9,7 @@ const featuredProjects = [
             "Comprehensive Learning Management System with role-based access control, user management, and integrated calendar functionalities.",
         url: "https://finursingcollege.in",
         blogUrl: "blogs.abhinavkushwaha.in",
-        tags: ["Next.js", "Prisma", "PostgreSQL", "Ngnix", "Pm2", 'GitHub Actions', "Digital Ocean"],
+        tags: ["Next.js", "PostgreSQL", "Ngnix", "Pm2", "Prisma", 'GitHub Actions', "Digital Ocean"],
     },
     {
         id: 2,
@@ -30,6 +31,7 @@ const featuredProjects = [
     },
 ]
 export default function FeaturedProjectsSection() {
+    // ...existing code...
     return (
         <section className="py-16">
             <div className="mb-16">
@@ -57,17 +59,17 @@ export default function FeaturedProjectsSection() {
                                     <p className="text-gray-400 mb-3 text-sm leading-relaxed line-clamp-3">{project.description}</p>
                                     <div className="flex flex-wrap gap-1 mb-3">
                                         {project.tags.slice(0, 3).map((tag, index) => (
-                                            <span key={index} className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-xs hover:bg-gray-700 transition-colors">{tag}</span>
+                                            <span key={index} className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-xs">{tag}</span>
                                         ))}
                                         {project.tags.length > 3 && (
-                                            <span className="px-2 py-1 bg-gray-700 text-gray-400 rounded text-xs">{`+${project.tags.length - 3}`}</span>
+                                            <span className="px-2 py-1 bg-gray-700 text-gray-400 rounded text-xs">+{project.tags.length - 3}</span>
                                         )}
                                     </div>
                                     <div className="flex space-x-2">
                                         <a href={project.url} target="_blank" className="inline-flex items-center px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded text-xs font-medium transition-all duration-200 hover:scale-105" rel="noreferrer">
                                             <i className="fas fa-external-link-alt mr-1"></i>Live Demo
                                         </a>
-                                        <Link href={project.blogUrl} target="_blank" rel="noreferrer" className="inline-flex items-center px-3 py-2 text-blue-400 hover:text-blue-300 rounded text-xs font-medium transition-all duration-200 hover:scale-105">Read Blog</Link>
+                                        <Link href={`https://${project.blogUrl}`} target="_blank" rel="noreferrer" className="inline-flex items-center px-3 py-2 text-blue-400 hover:text-blue-300 rounded text-xs font-medium transition-all duration-200 hover:scale-105">Read Blog</Link>
                                     </div>
                                 </div>
                             </div>
