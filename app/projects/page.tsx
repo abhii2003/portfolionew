@@ -39,18 +39,19 @@ export default function ProjectsPage() {
       description:
         "Disaster-survivor detection bot using real-time image processing and GPS tracking with emergency SMS alerts.",
       url: null,
+      gihubUrl: "blogs.abhinavkushwaha.in",
       blogUrl: "blogs.abhinavkushwaha.in",
-      tags: ["YOLOv5", "ESP32-CAM", "Supabase"],
+      tags: ["YOLOv5", "ESP32-CAM", "Supabase", "Python"],
       featured: false,
     },
     {
       id: 5,
-      title: "E-Commerce Analytics Dashboard",
+      title: "paradox-24",
       description:
-        "Real-time analytics dashboard for e-commerce platforms with advanced data visualization and reporting features.",
-      url: "https://analytics-dashboard-demo.vercel.app/",
+        "A retro-style Capture the Flag game for a club event.",
+
       blogUrl: "blogs.abhinavkushwaha.in",
-      tags: ["Next.js", "Chart.js", "Tailwind CSS", "API Integration"],
+      tags: ["HTML", "CSS", "JavaScript", "Supabase"],
       featured: true,
     },
   ]
@@ -106,6 +107,10 @@ export default function ProjectsPage() {
                 <div className="aspect-video website-thumbnail border-b border-gray-800 bg-[#1a1a1a] flex items-center justify-center">
                   <img src="/lmsimage.png" alt="FI Group LMS Portal" className="w-full h-full object-cover rounded" />
                 </div>
+              ) : project.id === 5 ? (
+                <div className="aspect-video website-thumbnail border-b border-gray-800 bg-[#1a1a1a] flex items-center justify-center">
+                  <img src="/paradoximage.png" alt="paradox-24" className="w-full h-full object-cover rounded" />
+                </div>
               ) : project.url ? (
                 <div className="aspect-video website-thumbnail border-b border-gray-800 bg-[#1a1a1a]">
                   <iframe
@@ -147,6 +152,16 @@ export default function ProjectsPage() {
                     >
                       <i className="fas fa-external-link-alt mr-1"></i>
                       Live Demo
+                    </a>
+                  ) : project.gihubUrl ? (
+                    <a
+                      href={project.gihubUrl}
+                      target="_blank"
+                      className="inline-flex items-center px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded text-xs font-medium transition-colors"
+                      rel="noreferrer"
+                    >
+                      <i className="fab fa-github mr-1"></i>
+                      Public Repo
                     </a>
                   ) : (
                     <span className="inline-flex items-center px-3 py-2 bg-gray-700 text-gray-400 rounded text-xs font-medium cursor-not-allowed">

@@ -8,7 +8,7 @@ const featuredProjects = [
             "Comprehensive Learning Management System with role-based access control, user management, and integrated calendar functionalities.",
         url: "https://finursingcollege.in",
         blogUrl: "blogs.abhinavkushwaha.in",
-        tags: ["Next.js", "Prisma", "PostgreSQL", "Ngnix", "Pm2", 'GitHub Actions'],
+        tags: ["Next.js", "Prisma", "PostgreSQL", "Ngnix", "Pm2", 'GitHub Actions', "Digital Ocean"],
     },
     {
         id: 2,
