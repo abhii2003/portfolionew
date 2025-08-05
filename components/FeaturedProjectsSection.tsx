@@ -33,10 +33,22 @@ const featuredProjects = [
 ]
 
 export default function FeaturedProjectsSection() {
+  const cardWidth = 320 + 24 // card width + gap, adjust if changed in CSS
+  const totalCards = featuredProjects.length + 1 // Including the "View All Projects" card
+
   // Scroll horizontally when user scrolls vertically on the container
   function handleWheel(event) {
-    event.preventDefault()
-    event.currentTarget.scrollLeft += event.deltaY
+    const container = event.currentTarget
+    const canScrollLeft = container.scrollLeft > 0
+    const canScrollRight = container.scrollLeft < container.scrollWidth - container.clientWidth
+
+    // Only prevent vertical scroll if horizontal scroll possible and deltaY is greater than deltaX
+    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+      if ((event.deltaY < 0 && canScrollLeft) || (event.deltaY > 0 && canScrollRight)) {
+        event.preventDefault()
+        container.scrollLeft += event.deltaY
+      }
+    }
   }
 
   return (
@@ -108,6 +120,7 @@ export default function FeaturedProjectsSection() {
               </div>
             ))}
 
+            {/* Extra card for View All Projects */}
             <div className="w-80 flex-shrink-0 scroll-snap-align-start">
               <div className="h-full flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-lg p-8 text-center hover:from-gray-800 hover:to-gray-700 transition-all duration-300 hover:scale-105">
                 <div>
@@ -130,19 +143,18 @@ export default function FeaturedProjectsSection() {
           </div>
         </div>
 
+        {/* Pagination dots */}
         <div className="flex justify-center mt-6 space-x-2">
-          {featuredProjects.map((_, index) => (
+          {Array.from({ length: totalCards }).map((_, index) => (
             <div
               key={index}
               className="w-2 h-2 rounded-full bg-gray-600 hover:bg-gray-400 transition-colors cursor-pointer"
               onClick={() => {
                 const container = document.querySelector(".overflow-x-auto")
-                const cardWidth = 320 + 24
                 container?.scrollTo({ left: index * cardWidth, behavior: "smooth" })
               }}
             ></div>
           ))}
-          <div className="w-2 h-2 rounded-full bg-gray-600 hover:bg-gray-400 transition-colors cursor-pointer"></div>
         </div>
       </div>
     </section>
