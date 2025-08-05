@@ -1,7 +1,6 @@
 "use client"
 import Link from "next/link"
 import React, { useRef, useState, useEffect } from "react"
-import { useGesture } from "@use-gesture/react"
 
 const featuredProjects = [
   {
@@ -34,47 +33,36 @@ const featuredProjects = [
 ]
 
 export default function FeaturedProjectsSection() {
-  const cardWidth = 320 + 24 // card width + gap, adjust if changed in CSS
-  const totalCards = featuredProjects.length + 1 // Including the "View All Projects" card
+  const cardWidth = 320 + 24 // card width + gap
+  const totalCards = featuredProjects.length + 1 // including "View All Projects"
 
   const containerRef = useRef(null)
-  const [isDragging, setIsDragging] = useState(false)
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
+  const [activeIndex, setActiveIndex] = useState(0)
 
-  // Gesture hook to handle drag
-  useGesture(
-    {
-      onDrag: ({ offset: [x], event, last }) => {
-        event.preventDefault()
-        if (!containerRef.current) return
-
-        if (!isDragging) setIsDragging(true)
-        containerRef.current.scrollLeft = -x
-
-        if (last) {
-          setIsDragging(false)
-        }
-      },
-      onMove: ({ event }) => {
-        setCursorPos({ x: event.clientX, y: event.clientY })
-      },
-    },
-    {
-      target: containerRef,
-      eventOptions: { passive: false },
-      drag: {
-        from: () => [-containerRef.current.scrollLeft, 0],
-        bounds: () => ({
-          left: 0,
-          right: containerRef.current.scrollWidth - containerRef.current.clientWidth,
-        }),
-        rubberband: false,
-        axis: "x",
-      },
+  useEffect(() => {
+    function onScroll() {
+      if (!containerRef.current) return
+      const scrollLeft = containerRef.current.scrollLeft
+      // Calculate active index based on scrollLeft and cardWidth
+      const index = Math.round(scrollLeft / cardWidth)
+      setActiveIndex(index)
     }
-  )
 
-  // Wheel scroll handler for horizontal scroll on vertical wheel
+    const container = containerRef.current
+    container?.addEventListener("scroll", onScroll, { passive: true })
+
+    return () => container?.removeEventListener("scroll", onScroll)
+  }, [cardWidth])
+
+  function scrollToIndex(index) {
+    if (!containerRef.current) return
+    const maxIndex = totalCards - 1
+    const clampedIndex = Math.min(Math.max(index, 0), maxIndex)
+    containerRef.current.scrollTo({ left: clampedIndex * cardWidth, behavior: "smooth" })
+    setActiveIndex(clampedIndex)
+  }
+
+  // Scroll wheel handler for vertical scroll triggering horizontal scroll
   function handleWheel(event) {
     const container = event.currentTarget
     const canScrollLeft = container.scrollLeft > 0
@@ -97,11 +85,35 @@ export default function FeaturedProjectsSection() {
         <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
         <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
 
+        {/* Left arrow: scroll to first dot */}
+        {activeIndex > 0 && (
+          <button
+            onClick={() => scrollToIndex(0)}
+            className="hidden md:flex items-center justify-center absolute top-1/2 left-2 transform -translate-y-1/2 w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-full text-white font-bold text-2xl select-none z-20"
+            aria-label="Scroll to first project"
+            style={{ userSelect: "none" }}
+          >
+            &lt;
+          </button>
+        )}
+
+        {/* Right arrow: scroll to last dot */}
+        {activeIndex < totalCards - 1 && (
+          <button
+            onClick={() => scrollToIndex(totalCards - 1)}
+            className="hidden md:flex items-center justify-center absolute top-1/2 right-2 transform -translate-y-1/2 w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-full text-white font-bold text-2xl select-none z-20"
+            aria-label="Scroll to last project"
+            style={{ userSelect: "none" }}
+          >
+            &gt;
+          </button>
+        )}
+
         <div
           ref={containerRef}
-          className={`overflow-x-auto scrollbar-hide scroll-smooth cursor-grab`}
+          className="overflow-x-auto scrollbar-hide scroll-smooth"
           onWheel={handleWheel}
-          style={{ userSelect: isDragging ? "none" : "auto" }}
+          style={{ scrollSnapType: "x mandatory" }}
         >
           <div className="flex space-x-6 w-max px-4 py-2 select-none">
             {featuredProjects.map((project, index) => (
@@ -168,18 +180,13 @@ export default function FeaturedProjectsSection() {
               <div className="h-full flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-lg p-8 text-center hover:from-gray-800 hover:to-gray-700 transition-all duration-300 hover:scale-105">
                 <div>
                   <div className="w-16 h-16 mx-auto mb-4 bg-gray-800 rounded-full flex items-center justify-center">
-                    <Link href="/projects" className="flex items-center justify-center">
-                      <i className="fas fa-arrow-right text-gray-400 text-xl"></i>
+                    <Link href="/projects" className="text-cyan-400 font-bold text-lg">
+                      View All
                     </Link>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">View All Projects</h3>
-                  <p className="text-gray-400 text-sm mb-4">Explore my complete portfolio</p>
-                  <Link
-                    href="/projects"
-                    className="inline-flex items-center px-4 py-2 bg-white hover:bg-gray-100 text-black rounded-md text-sm font-medium transition-colors"
-                  >
-                    See More
-                  </Link>
+                  <p className="text-gray-400 text-sm max-w-xs mx-auto">
+                    Explore all of my projects and case studies.
+                  </p>
                 </div>
               </div>
             </div>
@@ -191,32 +198,13 @@ export default function FeaturedProjectsSection() {
           {Array.from({ length: totalCards }).map((_, index) => (
             <div
               key={index}
-              className="w-2 h-2 rounded-full bg-gray-600 hover:bg-gray-400 transition-colors cursor-pointer"
-              onClick={() => {
-                const container = containerRef.current
-                container?.scrollTo({ left: index * cardWidth, behavior: "smooth" })
-              }}
-            ></div>
+              onClick={() => scrollToIndex(index)}
+              className={`w-3 h-3 rounded-full cursor-pointer transition-colors ${
+                index === activeIndex ? "bg-cyan-400" : "bg-gray-600 hover:bg-gray-400"
+              }`}
+            />
           ))}
         </div>
-
-        {/* Custom circle cursor */}
-        {isDragging && (
-          <div
-            style={{
-              position: "fixed",
-              top: cursorPos.y - 20,
-              left: cursorPos.x - 20,
-              width: 40,
-              height: 40,
-              borderRadius: "50%",
-              border: "2px solid #38bdf8", // Tailwind cyan-400
-              pointerEvents: "none",
-              zIndex: 9999,
-              transition: "top 0.1s ease, left 0.1s ease",
-            }}
-          />
-        )}
       </div>
     </section>
   )
