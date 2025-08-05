@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link"
-import React, { useRef } from "react"
+import React, { useRef, useState, useEffect } from "react"
+import { useGesture } from "@use-gesture/react"
 
 const featuredProjects = [
   {
@@ -36,12 +37,44 @@ export default function FeaturedProjectsSection() {
   const cardWidth = 320 + 24 // card width + gap, adjust if changed in CSS
   const totalCards = featuredProjects.length + 1 // Including the "View All Projects" card
 
-  const scrollRef = useRef(null)
-  const isDragging = useRef(false)
-  const startX = useRef(0)
-  const scrollLeft = useRef(0)
+  const containerRef = useRef(null)
+  const [isDragging, setIsDragging] = useState(false)
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
 
-  // Scroll horizontally on vertical mouse wheel
+  // Gesture hook to handle drag
+  useGesture(
+    {
+      onDrag: ({ offset: [x], event, last }) => {
+        event.preventDefault()
+        if (!containerRef.current) return
+
+        if (!isDragging) setIsDragging(true)
+        containerRef.current.scrollLeft = -x
+
+        if (last) {
+          setIsDragging(false)
+        }
+      },
+      onMove: ({ event }) => {
+        setCursorPos({ x: event.clientX, y: event.clientY })
+      },
+    },
+    {
+      target: containerRef,
+      eventOptions: { passive: false },
+      drag: {
+        from: () => [-containerRef.current.scrollLeft, 0],
+        bounds: () => ({
+          left: 0,
+          right: containerRef.current.scrollWidth - containerRef.current.clientWidth,
+        }),
+        rubberband: false,
+        axis: "x",
+      },
+    }
+  )
+
+  // Wheel scroll handler for horizontal scroll on vertical wheel
   function handleWheel(event) {
     const container = event.currentTarget
     const canScrollLeft = container.scrollLeft > 0
@@ -55,35 +88,8 @@ export default function FeaturedProjectsSection() {
     }
   }
 
-  // Mouse drag handlers for horizontal drag-scroll
-  function onMouseDown(event) {
-    if (!scrollRef.current) return
-    isDragging.current = true
-    startX.current = event.pageX - scrollRef.current.offsetLeft
-    scrollLeft.current = scrollRef.current.scrollLeft
-    scrollRef.current.style.cursor = "grabbing"
-  }
-
-  function onMouseLeave() {
-    isDragging.current = false
-    if (scrollRef.current) scrollRef.current.style.cursor = "grab"
-  }
-
-  function onMouseUp() {
-    isDragging.current = false
-    if (scrollRef.current) scrollRef.current.style.cursor = "grab"
-  }
-
-  function onMouseMove(event) {
-    if (!isDragging.current || !scrollRef.current) return
-    event.preventDefault()
-    const x = event.pageX - scrollRef.current.offsetLeft
-    const walk = (x - startX.current) * 1.5 // scroll-fast factor
-    scrollRef.current.scrollLeft = scrollLeft.current - walk
-  }
-
   return (
-    <section className="py-16">
+    <section className="py-16 relative">
       <div className="mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-8 text-center">featured projects.</h1>
       </div>
@@ -92,16 +98,12 @@ export default function FeaturedProjectsSection() {
         <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
 
         <div
-          ref={scrollRef}
-          className="overflow-x-auto scrollbar-hide scroll-smooth cursor-grab"
+          ref={containerRef}
+          className={`overflow-x-auto scrollbar-hide scroll-smooth cursor-grab`}
           onWheel={handleWheel}
-          onMouseDown={onMouseDown}
-          onMouseLeave={onMouseLeave}
-          onMouseUp={onMouseUp}
-          onMouseMove={onMouseMove}
-          style={{ userSelect: isDragging.current ? "none" : "auto" }} // disable text selection while dragging
+          style={{ userSelect: isDragging ? "none" : "auto" }}
         >
-          <div className="flex space-x-6 w-max px-4 py-2">
+          <div className="flex space-x-6 w-max px-4 py-2 select-none">
             {featuredProjects.map((project, index) => (
               <div
                 key={project.id}
@@ -191,12 +193,30 @@ export default function FeaturedProjectsSection() {
               key={index}
               className="w-2 h-2 rounded-full bg-gray-600 hover:bg-gray-400 transition-colors cursor-pointer"
               onClick={() => {
-                const container = scrollRef.current
+                const container = containerRef.current
                 container?.scrollTo({ left: index * cardWidth, behavior: "smooth" })
               }}
             ></div>
           ))}
         </div>
+
+        {/* Custom circle cursor */}
+        {isDragging && (
+          <div
+            style={{
+              position: "fixed",
+              top: cursorPos.y - 20,
+              left: cursorPos.x - 20,
+              width: 40,
+              height: 40,
+              borderRadius: "50%",
+              border: "2px solid #38bdf8", // Tailwind cyan-400
+              pointerEvents: "none",
+              zIndex: 9999,
+              transition: "top 0.1s ease, left 0.1s ease",
+            }}
+          />
+        )}
       </div>
     </section>
   )
