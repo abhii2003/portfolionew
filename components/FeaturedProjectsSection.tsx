@@ -100,7 +100,7 @@ export default function FeaturedProjectsSection() {
         {/* Right arrow: scroll to last dot */}
         {activeIndex < totalCards - 1 && (
           <button
-            onClick={() => scrollToIndex(totalCards - 1)}
+            onClick={() => scrollToIndex(totalCards)}
             className="hidden md:flex items-center justify-center absolute top-1/2 right-2 transform -translate-y-1/2 w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-full text-white font-bold text-2xl select-none z-20"
             aria-label="Scroll to last project"
             style={{ userSelect: "none" }}
@@ -176,18 +176,18 @@ export default function FeaturedProjectsSection() {
             ))}
 
             {/* Extra card for View All Projects */}
-            <div className="w-80 flex-shrink-0 scroll-snap-align-start">
-              <div className="h-full flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-lg p-8 text-center hover:from-gray-800 hover:to-gray-700 transition-all duration-300 hover:scale-105">
-                <div>
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gray-800 rounded-full flex items-center justify-center">
-                    <Link href="/projects" className="text-cyan-400 font-bold text-lg">
-                      View All
-                    </Link>
+              <div className="w-80 flex-shrink-0 scroll-snap-align-start">
+                  <div className="h-full flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-lg p-8 text-center hover:from-gray-800 hover:to-gray-700 transition-all duration-300 hover:scale-105">
+  
+                      <div>
+                          <div className="w-16 h-16 mx-auto mb-4 bg-gray-800 rounded-full flex items-center justify-center">
+                              <Link href="/projects" className="flex items-center justify-center"><i className="fas fa-arrow-right text-gray-400 text-xl"></i></Link>
+                          </div>
+                          <h3 className="text-lg font-bold text-white mb-2">View All Projects</h3>
+                          <p className="text-gray-400 text-sm mb-4">Explore my complete portfolio</p>
+                          <Link href="/projects" className="inline-flex items-center px-4 py-2 bg-white hover:bg-gray-100 text-black rounded-md text-sm font-medium transition-colors">See More</Link>
+                      </div>
                   </div>
-                  <p className="text-gray-400 text-sm max-w-xs mx-auto">
-                    Explore all of my projects and case studies.
-                  </p>
-                </div>
               </div>
             </div>
           </div>
