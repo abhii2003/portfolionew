@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import React from "react"
+import React, { useRef } from "react"
 
 const featuredProjects = [
   {
@@ -10,7 +10,7 @@ const featuredProjects = [
       "Comprehensive Learning Management System with role-based access control, user management, and integrated calendar functionalities.",
     url: "https://finursingcollege.in",
     blogUrl: "blogs.abhinavkushwaha.in",
-    tags: ["Next.js", "PostgreSQL", "Ngnix", "Pm2", "Prisma", 'GitHub Actions', "Digital Ocean"],
+    tags: ["Next.js", "PostgreSQL", "Ngnix", "Pm2", "Prisma", "GitHub Actions", "Digital Ocean"],
   },
   {
     id: 2,
@@ -36,19 +36,50 @@ export default function FeaturedProjectsSection() {
   const cardWidth = 320 + 24 // card width + gap, adjust if changed in CSS
   const totalCards = featuredProjects.length + 1 // Including the "View All Projects" card
 
-  // Scroll horizontally when user scrolls vertically on the container
+  const scrollRef = useRef(null)
+  const isDragging = useRef(false)
+  const startX = useRef(0)
+  const scrollLeft = useRef(0)
+
+  // Scroll horizontally on vertical mouse wheel
   function handleWheel(event) {
     const container = event.currentTarget
     const canScrollLeft = container.scrollLeft > 0
     const canScrollRight = container.scrollLeft < container.scrollWidth - container.clientWidth
 
-    // Only prevent vertical scroll if horizontal scroll possible and deltaY is greater than deltaX
     if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
       if ((event.deltaY < 0 && canScrollLeft) || (event.deltaY > 0 && canScrollRight)) {
         event.preventDefault()
         container.scrollLeft += event.deltaY
       }
     }
+  }
+
+  // Mouse drag handlers for horizontal drag-scroll
+  function onMouseDown(event) {
+    if (!scrollRef.current) return
+    isDragging.current = true
+    startX.current = event.pageX - scrollRef.current.offsetLeft
+    scrollLeft.current = scrollRef.current.scrollLeft
+    scrollRef.current.style.cursor = "grabbing"
+  }
+
+  function onMouseLeave() {
+    isDragging.current = false
+    if (scrollRef.current) scrollRef.current.style.cursor = "grab"
+  }
+
+  function onMouseUp() {
+    isDragging.current = false
+    if (scrollRef.current) scrollRef.current.style.cursor = "grab"
+  }
+
+  function onMouseMove(event) {
+    if (!isDragging.current || !scrollRef.current) return
+    event.preventDefault()
+    const x = event.pageX - scrollRef.current.offsetLeft
+    const walk = (x - startX.current) * 1.5 // scroll-fast factor
+    scrollRef.current.scrollLeft = scrollLeft.current - walk
   }
 
   return (
@@ -61,8 +92,14 @@ export default function FeaturedProjectsSection() {
         <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
 
         <div
-          className="overflow-x-auto scrollbar-hide scroll-smooth"
+          ref={scrollRef}
+          className="overflow-x-auto scrollbar-hide scroll-smooth cursor-grab"
           onWheel={handleWheel}
+          onMouseDown={onMouseDown}
+          onMouseLeave={onMouseLeave}
+          onMouseUp={onMouseUp}
+          onMouseMove={onMouseMove}
+          style={{ userSelect: isDragging.current ? "none" : "auto" }} // disable text selection while dragging
         >
           <div className="flex space-x-6 w-max px-4 py-2">
             {featuredProjects.map((project, index) => (
@@ -81,8 +118,10 @@ export default function FeaturedProjectsSection() {
                       src={project.url}
                       className="w-full h-full pointer-events-none opacity-0 transition-opacity duration-300 hide-scrollbar"
                       loading="lazy"
-                      onLoad={(e) => { e.currentTarget.style.opacity = "1" }}
-                      style={{ overflow: 'hidden', scrollbarWidth: 'none' }}
+                      onLoad={(e) => {
+                        e.currentTarget.style.opacity = "1"
+                      }}
+                      style={{ overflow: "hidden", scrollbarWidth: "none" }}
                     ></iframe>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
                   </div>
@@ -92,7 +131,9 @@ export default function FeaturedProjectsSection() {
                   <p className="text-gray-400 mb-3 text-sm leading-relaxed line-clamp-3">{project.description}</p>
                   <div className="flex flex-wrap gap-1 mb-3">
                     {project.tags.slice(0, 3).map((tag, index) => (
-                      <span key={index} className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-xs">{tag}</span>
+                      <span key={index} className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-xs">
+                        {tag}
+                      </span>
                     ))}
                     {project.tags.length > 3 && (
                       <span className="px-2 py-1 bg-gray-700 text-gray-400 rounded text-xs">+{project.tags.length - 3}</span>
@@ -150,7 +191,7 @@ export default function FeaturedProjectsSection() {
               key={index}
               className="w-2 h-2 rounded-full bg-gray-600 hover:bg-gray-400 transition-colors cursor-pointer"
               onClick={() => {
-                const container = document.querySelector(".overflow-x-auto")
+                const container = scrollRef.current
                 container?.scrollTo({ left: index * cardWidth, behavior: "smooth" })
               }}
             ></div>
