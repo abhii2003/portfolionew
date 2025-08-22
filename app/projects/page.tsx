@@ -18,7 +18,7 @@ export default function ProjectsPage() {
       title: "Daycare Management App",
       description:
         "Modern daycare management system with child tracking, parent communication, and administrative tools.",
-      url: "https://daycare-management-app-design.vercel.app/",
+      url: "https://dms.splashnest.com",
       blogUrl: "blogs.abhinavkushwaha.in",
       tags: ["Next.js", "Prisma", "Supabase"],
       featured: true,
