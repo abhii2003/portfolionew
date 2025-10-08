@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Abhinav Kushwaha - Fullstack Developer",
   description: "21yo computer science student from India. Fullstack developer by passion, problem solver by nature.",
-    generator: 'v0.dev'
+  generator: 'v0.dev',
 }
 
 export default function RootLayout({
@@ -24,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <link rel="icon" href="/icon.png" type="image/png" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
