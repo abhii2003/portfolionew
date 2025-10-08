@@ -13,7 +13,7 @@ export default function RescueBotBlog() {
                         <div className="flex space-x-6">
                             <Link href="/" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors">home</Link>
                             <Link href="/projects" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors">projects</Link>
-                            <a href="https://blogs.abhinavkushwaha.in" target="_blank" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors" rel="noreferrer">blog</a>
+                            {/* <a href="https://blogs.abhinavkushwaha.in" target="_blank" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors" rel="noreferrer">blog</a> */}
                             <Link href="/contact" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors">contact</Link>
                         </div>
                         <div className="flex items-center space-x-4">

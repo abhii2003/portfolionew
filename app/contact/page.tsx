@@ -39,14 +39,14 @@ export default function ContactPage() {
               <Link href="/projects" className="nav-link text-gray-400 hover:text-white text-sm font-medium">
                 projects
               </Link>
-              <a
+              {/* <a
                 href="https://blogs.abhinavkushwaha.in"
                 target="_blank"
                 className="nav-link text-gray-400 hover:text-white text-sm font-medium"
                 rel="noreferrer"
               >
                 blog
-              </a>
+              </a> */}
               <a href="#" className="nav-link active text-white text-sm font-medium">
                 contact
               </a>

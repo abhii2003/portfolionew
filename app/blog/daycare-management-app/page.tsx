@@ -13,7 +13,7 @@ export default function DaycareBlog() {
                         <div className="flex space-x-6">
                             <Link href="/" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors">home</Link>
                             <Link href="/projects" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors">projects</Link>
-                            <a href="https://blogs.abhinavkushwaha.in" target="_blank" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors" rel="noreferrer">blog</a>
+                            {/* <a href="https://blogs.abhinavkushwaha.in" target="_blank" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors" rel="noreferrer">blog</a> */}
                             <Link href="/contact" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors">contact</Link>
                         </div>
                         <div className="flex items-center space-x-4">
@@ -34,7 +34,7 @@ export default function DaycareBlog() {
 
                 {/* Blog Content */}
                 <article className="prose prose-invert prose-lg max-w-none">
-                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Building Splashnest: A Daycare Management System That Actually Works</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Building Splashnest: A Daycare Management System </h1>
 
                     <div className="flex items-center space-x-4 text-gray-400 text-sm mb-8">
                         <span>September 2025</span>
