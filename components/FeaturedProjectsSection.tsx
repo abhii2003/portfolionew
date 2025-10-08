@@ -144,14 +144,20 @@ export default function FeaturedProjectsSection() {
                                         >
                                             <i className="fas fa-external-link-alt mr-1"></i>Live Demo
                                         </a>
-                                        <Link
-                                            href={`https://${project.blogUrl}`}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="inline-flex items-center px-3 py-2 text-blue-400 hover:text-blue-300 rounded text-xs font-medium transition-all duration-200 hover:scale-105"
-                                        >
-                                            Read Blog
-                                        </Link>
+                                        {project.id === 3 ? (
+                                            <span className="inline-flex items-center px-3 py-2 text-gray-500 bg-gray-800/50 rounded text-xs font-medium cursor-not-allowed">
+                                                Coming Soon
+                                            </span>
+                                        ) : (
+                                            <Link
+                                                href={project.id === 1 ? "/blog/fi-group-lms-portal" : project.id === 2 ? "/blog/daycare-management-app" : `https://${project.blogUrl}`}
+                                                target={project.id === 1 || project.id === 2 ? "_self" : "_blank"}
+                                                rel="noreferrer"
+                                                className="inline-flex items-center px-3 py-2 text-blue-400 hover:text-blue-300 rounded text-xs font-medium transition-all duration-200 hover:scale-105"
+                                            >
+                                                Read Blog
+                                            </Link>
+                                        )}
                                     </div>
                                 </div>
                             </div>

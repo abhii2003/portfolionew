@@ -9,7 +9,7 @@ export default function ProjectsPage() {
       description:
         "Comprehensive Learning Management System with role-based access control, user management, and integrated calendar functionalities.",
       url: "https://finursingcollege.in",
-      blogUrl: "blogs.abhinavkushwaha.in",
+      blogUrl: "/blog/fi-group-lms-portal",
       tags: ["Next.js", "Prisma", "PostgreSQL", "Ngnix", "Pm2", 'GitHub Actions', "Digital Ocean"],
       featured: true,
     },
@@ -19,7 +19,7 @@ export default function ProjectsPage() {
       description:
         "Modern daycare management system with child tracking, parent communication, and administrative tools.",
       url: "https://dms.splashnest.com",
-      blogUrl: "blogs.abhinavkushwaha.in",
+      blogUrl: "/blog/daycare-management-app",
       tags: ["Next.js", "Prisma", "Supabase"],
       featured: true,
     },
@@ -39,8 +39,8 @@ export default function ProjectsPage() {
       description:
         "Disaster-survivor detection bot using real-time image processing and GPS tracking with emergency SMS alerts.",
       url: null,
-      gihubUrl: "blogs.abhinavkushwaha.in",
-      blogUrl: "blogs.abhinavkushwaha.in",
+      gihubUrl: "https://github.com/abhii2003/RRBOT",
+      blogUrl: "/blog/rescue-bot",
       tags: ["YOLOv5", "ESP32-CAM", "Supabase", "Python"],
       featured: false,
     },
@@ -156,7 +156,20 @@ export default function ProjectsPage() {
                       Private
                     </span>
                   )}
-                  <Link href={`https://${project.blogUrl}`} target="_blank" rel="noreferrer" className="inline-flex items-center px-3 py-2 text-blue-400 hover:text-blue-300 rounded text-xs font-medium transition-all duration-200 hover:scale-105">Read Blog</Link>
+                  {project.id === 3 || project.id === 5 ? (
+                    <span className="inline-flex items-center px-3 py-2 text-gray-500 bg-gray-800/50 rounded text-xs font-medium cursor-not-allowed">
+                      Coming Soon
+                    </span>
+                  ) : (
+                    <Link
+                      href={project.blogUrl}
+                      target={project.blogUrl.startsWith('/blog') ? "_self" : "_blank"}
+                      rel="noreferrer"
+                      className="inline-flex items-center px-3 py-2 text-blue-400 hover:text-blue-300 rounded text-xs font-medium transition-all duration-200 hover:scale-105"
+                    >
+                      Read Blog
+                    </Link>
+                  )}
 
                 </div>
               </div>
