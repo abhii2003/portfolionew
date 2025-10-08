@@ -13,7 +13,7 @@ export default function FIGroupLMSBlog() {
                         <div className="flex space-x-6">
                             <Link href="/" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors">home</Link>
                             <Link href="/projects" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors">projects</Link>
-                            <a href="https://blogs.abhinavkushwaha.in" target="_blank" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors" rel="noreferrer">blog</a>
+                            {/* <a href="https://blogs.abhinavkushwaha.in" target="_blank" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors" rel="noreferrer">blog</a> */}
                             <Link href="/contact" className="nav-link text-gray-400 text-sm font-medium hover:text-white transition-colors">contact</Link>
                         </div>
                         <div className="flex items-center space-x-4">
@@ -470,41 +470,7 @@ volumes:
                             Clean, reusable, and I can audit permissions by just looking at the route definitions. No more hunting through thousands of lines of code.
                         </p>
 
-                        <h3 className="text-2xl font-bold text-white mt-8 mb-3">Problem 2: Slow Queries With Hundreds of Students</h3>
-                        <p>
-                            <strong>The Issue:</strong> The LMS worked great during development with 10 test users. Then we onboarded real students. Suddenly, loading a course with 250+ enrolled students took 8-12 seconds. The dashboard would hang. Parents complained. Instructors complained. It was bad.
-                        </p>
-                        <p>
-                            The problem? I was fetching way too much data. When displaying a course page, I'd load all enrolled students, with all their related data (grades, submissions, attendance records, everything). Then I'd send this massive object to the frontend. The database query took forever, the JSON serialization took forever, the network transfer took forever.
-                        </p>
-
-                        <p><strong>The Fix - Multiple Strategies:</strong></p>
-
-                        <p><strong>1. Pagination (The Right Way)</strong></p>
-                        <p>
-                            I implemented cursor-based pagination instead of offset-based. Offset-based pagination (LIMIT/OFFSET) gets slower as you go deeper into results because the database has to scan and skip all previous rows. Cursor-based pagination uses the last item's ID as a reference point, which stays fast even on page 100.
-                        </p>
-
-                        <p><strong>2. Database Indexes</strong></p>
-                        <p>
-                            I added indexes on fields I query frequently: user IDs, course IDs, enrollment status, dates. Prisma makes this easy in the schema. What used to be full table scans became instant index lookups. Query times dropped from seconds to milliseconds.
-                        </p>
-
-                        <p><strong>3. Select Only What You Need</strong></p>
-                        <p>
-                            Prisma's <code className="text-blue-400">select</code> option is a lifesaver. Instead of fetching entire user objects with every field, I fetch just the name and email. Instead of loading all attendance records, I fetch just today's. The payload shrinks from megabytes to kilobytes.
-                        </p>
-
-                        <p><strong>4. Redis Caching</strong></p>
-                        <p>
-                            Some data doesn't change often - like course descriptions, instructor info, or enrollment counts. I cache these in Redis with a 5-minute TTL. First request hits the database, subsequent requests hit Redis (which is blazing fast). When data does change, I invalidate the relevant cache keys.
-                        </p>
-
-                        <p>
-                            Result? Load times went from 8+ seconds to under 2 seconds. The difference is night and day. Users are happy, and I'm not getting panicked messages about the site being "broken."
-                        </p>
-
-                        <h3 className="text-2xl font-bold text-white mt-8 mb-3">Problem 3: Zero-Downtime Migrations</h3>
+                        <h3 className="text-2xl font-bold text-white mt-8 mb-3">Problem 2: Zero-Downtime Migrations</h3>
                         <p>
                             <strong>The Issue:</strong> Students use this LMS 24/7. There's no "maintenance window" where I can take the site down. But I need to update the database schema as features evolve - add tables, modify columns, create relationships.
                         </p>
