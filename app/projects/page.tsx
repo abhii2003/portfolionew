@@ -65,7 +65,7 @@ export default function ProjectsPage() {
             <div className="flex space-x-6">
               <Link href="/" className="nav-link text-gray-400 text-sm font-medium">home</Link>
               <a href="#" className="nav-link active text-white text-sm font-medium">projects</a>
-              <a href="https://blogs.abhinavkushwaha.in" target="_blank" className="nav-link text-gray-400 text-sm font-medium" rel="noreferrer">blog</a>
+              {/* <a href="https://blogs.abhinavkushwaha.in" target="_blank" className="nav-link text-gray-400 text-sm font-medium" rel="noreferrer">blog</a> */}
               <Link href="/contact" className="nav-link text-gray-400 text-sm font-medium">contact</Link>
             </div>
             <div className="flex items-center space-x-4">
