@@ -47,10 +47,10 @@ export default function FIGroupLMSBlog() {
                         <p>
                             So I got tasked with building a Learning Management System for FI Nursing College. We're talking about a comprehensive platform which includes role-based access, user management, integrated calendars. And it needed to actually work in production with real users, not just be another portfolio piece that crashes under load.
                         </p>
-                        <p className="flex items-center space-x-2">
+                        {/* <p className="flex items-center space-x-2">
                             <strong>Check it out live:</strong>
                             <a href="https://finursingcollege.in" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors">finursingcollege.in</a>
-                        </p>
+                        </p> */}
 
                         <h2 className="text-3xl font-bold text-white mt-12 mb-4">The Stack</h2>
                         <p>Here's what I ended up using:</p>
