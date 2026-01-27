@@ -10,7 +10,7 @@ export default function HomeSection() {
                     <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
                         hello! abhinav here. <span className="text-3xl"></span>
                     </h1>
-                    <p className="text-xl text-gray-300 mb-4">Computer science student and a full-stack developer from India.</p>
+                    <p className="text-xl text-gray-300 mb-4">Computer science grad and a full-stack developer from India.</p>
                 </div>
                 {/* <div className="mb-8">
                     <div className="w-48 h-48 mx-auto mb-8 rounded-lg overflow-hidden">

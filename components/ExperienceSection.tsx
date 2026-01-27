@@ -134,9 +134,9 @@ export default function ExperienceSection() {
                             </div>
                         </div>
                         <div className="flex-1">
-                            <div className="flex items-center gap-4 mb-2"><span className="text-sm text-gray-400">July 2022 - Present</span></div>
+                            {/* <div className="flex items-center gap-4 mb-2"><span className="text-sm text-gray-400">July 2022 - Present</span></div> */}
                             <h3 className="text-lg font-bold text-white mb-1">Vellore Institute of Technology</h3>
-                            <p className="text-gray-400 mb-3">BTECH Computer Science and Engineering • CGPA: 8.88</p>
+                            <p className="text-gray-400 mb-3">BTECH Computer Science and Engineering • CGPA: 8.89</p>
                         </div>
                     </div>
                     <div className="flex gap-4">
