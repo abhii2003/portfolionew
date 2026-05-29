@@ -130,12 +130,7 @@ export default function ProjectsPage() {
                   ))}
                 </div>
                 <div className="flex space-x-3">
-                  {project.id === 1 ? (
-                    <span className="inline-flex items-center px-3 py-2 bg-gray-700 text-gray-400 rounded text-xs font-medium cursor-not-allowed">
-                      <i className="fas fa-ban mr-1"></i>
-                      Out of Service
-                    </span>
-                  ) : project.url ? (
+                  {project.url ? (
                     <a
                       href={project.url}
                       target="_blank"
