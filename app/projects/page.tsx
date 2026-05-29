@@ -138,7 +138,7 @@ export default function ProjectsPage() {
                       rel="noreferrer"
                     >
                       <i className="fas fa-external-link-alt mr-1"></i>
-                      Live Demo
+                      {project.id === 1 ? "Live" : "Live Demo"}
                     </a>
                   ) : project.gihubUrl ? (
                     <a

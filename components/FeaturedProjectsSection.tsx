@@ -142,7 +142,7 @@ export default function FeaturedProjectsSection() {
                                             className="inline-flex items-center px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded text-xs font-medium transition-all duration-200 hover:scale-105"
                                             rel="noreferrer"
                                         >
-                                            <i className="fas fa-external-link-alt mr-1"></i>Live Demo
+                                            <i className="fas fa-external-link-alt mr-1"></i>{project.id === 1 ? "Live" : "Live Demo"}
                                         </a>
                                         {project.id === 3 ? (
                                             <span className="inline-flex items-center px-3 py-2 text-gray-500 bg-gray-800/50 rounded text-xs font-medium cursor-not-allowed">
